@@ -2,7 +2,7 @@
 Класс книги Book
  */
 
-package com.jedi_bachelor.model;
+package main.com.jedi_bachelor.model;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -79,5 +79,15 @@ public class Book implements Serializable {
 
     public void setAllPages(int _allPages) {
         this.allPages = _allPages;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "nameOfBook='" + nameOfBook + '\'' +
+                ", authorOfBook='" + authorOfBook + '\'' +
+                ", completePages=" + completePages +
+                ", allPages=" + allPages +
+                '}';
     }
 }

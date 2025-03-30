@@ -1,4 +1,4 @@
-package com.jedi_bachelor.exceptions;
+package main.com.jedi_bachelor.exceptions;
 
 /*
 Класс исключения IllegalPagesException
@@ -19,7 +19,7 @@ package com.jedi_bachelor.exceptions;
     }
 
     public static void validateInput(int _pages) throws IllegalPagesException {
-        if (_completePages < allPages) {
+        if (_completePages < this.allPages) {
             throw new IllegalPagesException("Количество прочитанных страниц больше общего числа страниц!");
         }
     }
