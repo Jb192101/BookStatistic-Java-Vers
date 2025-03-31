@@ -6,6 +6,7 @@ package main.com.jedi_bachelor.model;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Book implements Serializable {
@@ -17,14 +18,22 @@ public class Book implements Serializable {
     private String authorOfBook;
     private int completePages;
     private int allPages;
+    private LocalDate startDate;
+    private LocalDate finishDate;
 
-    public Book(String _nameOfBook, String _authorOfBook, int _completePages, int _allPages) {
+    public Book(String _nameOfBook, String _authorOfBook, int _completePages, int _allPages, LocalDate _ld) {
         if(_completePages < _allPages && _completePages >= 0 && _allPages > 0) {
             this.nameOfBook = _nameOfBook;
             this.authorOfBook = _authorOfBook;
             this.completePages = _completePages;
             this.allPages = _allPages;
+            this.startDate = _ld;
         }
+    }
+
+    // Пустой конструктор
+    public Book() {
+
     }
 
     @Override
@@ -32,12 +41,12 @@ public class Book implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return id == book.id && completePages == book.completePages && allPages == book.allPages && Objects.equals(nameOfBook, book.nameOfBook) && Objects.equals(authorOfBook, book.authorOfBook);
+        return id == book.id && completePages == book.completePages && allPages == book.allPages && Objects.equals(nameOfBook, book.nameOfBook) && Objects.equals(authorOfBook, book.authorOfBook) && Objects.equals(startDate, book.startDate) && Objects.equals(finishDate, book.finishDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(serialVersionUID, id, nameOfBook, authorOfBook, completePages, allPages);
+        return Objects.hash(id, nameOfBook, authorOfBook, completePages, allPages, startDate, finishDate);
     }
 
     public int getId() {
@@ -81,13 +90,24 @@ public class Book implements Serializable {
         this.allPages = _allPages;
     }
 
+    public LocalDate getStartDate() { return startDate; }
+
+    public void setStartDate(LocalDate startDate) { this.startDate = startDate; }
+
+    public LocalDate getFinishDate() { return finishDate; }
+
+    public void setFinishDate(LocalDate finishDate) { this.finishDate = finishDate; }
+
     @Override
     public String toString() {
         return "Book{" +
-                "nameOfBook='" + nameOfBook + '\'' +
+                "id=" + id +
+                ", nameOfBook='" + nameOfBook + '\'' +
                 ", authorOfBook='" + authorOfBook + '\'' +
                 ", completePages=" + completePages +
                 ", allPages=" + allPages +
+                ", startDate=" + startDate +
+                ", finishDate=" + finishDate +
                 '}';
     }
 }
