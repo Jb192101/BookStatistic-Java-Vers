@@ -111,8 +111,13 @@ public class MainWindow extends Stage {
     }
 
     private void fillingTable(ObservableList<Book> _data) {
+        _data.clear();
         ArrayList<Book> bookArrayList = bvm.readFromBookModel();
+
         int count = bookArrayList.size();
+        if(count == 0) {
+            return;
+        }
 
         for(int i = 0; i < count; i++) {
             _data.add(bookArrayList.get(i));

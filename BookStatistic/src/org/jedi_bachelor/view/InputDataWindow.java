@@ -82,7 +82,6 @@ public class InputDataWindow {
             if (pagesReadSpinner.getValue() > newVal) {
                 pagesReadSpinner.getValueFactory().setValue(newVal);
             }
-            //pagesReadSpinner.getValueFactory().setMax(newVal);
         });
     }
 
@@ -114,6 +113,8 @@ public class InputDataWindow {
                 totalPages,
                 LocalDate.now()
         );
+
+
 
         stage.close();
     }
