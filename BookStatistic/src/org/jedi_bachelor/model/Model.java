@@ -1,11 +1,12 @@
 package org.jedi_bachelor.model;
 
 import java.io.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Model {
-    private final String PATH_TO_FILE_BOOKS = "books.bin";
+    private final String PATH_TO_FILE_BOOKS = "src/resources/data_files/books.bin";
+    private final String PATH_TO_FILE_MONTH = "src/resources/data_files/monthStatistic.bin";
+    private final String PATH_TO_FILE_TEMPS = "src/resources/data_files/tempsStatistic.bin";
 
     private ArrayList<Book> books = new ArrayList<>();
 
@@ -39,6 +40,7 @@ public class Model {
     }
 
     public void updateData(Book _newBook) {
+        _newBook.setId(this.books.size()+1);
         this.books.add(_newBook);
         try {
             FileOutputStream fos = new FileOutputStream(PATH_TO_FILE_BOOKS);

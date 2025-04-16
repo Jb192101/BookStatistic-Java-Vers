@@ -70,9 +70,7 @@ public class MainWindow extends Stage {
                 totalPagesColumn, startDateColumn, endDateColumn, procentColumn);
 
         // Заполнение таблицы
-        ObservableList<Book> data = FXCollections.observableArrayList(
-                //new Book("аа", "а", 199, 200, LocalDate.now())
-        );
+        ObservableList<Book> data = FXCollections.observableArrayList();
         fillingTable(data);
         table.setItems(data);
 
@@ -87,8 +85,9 @@ public class MainWindow extends Stage {
         Button deleteButton = new Button("Удалить");
         Button statsButton = new Button("Статистика");
 
-        addButton.setOnAction(e ->
-            bvm.openInputDataWindow());
+        addButton.setOnAction(e -> {
+            bvm.openInputDataWindow();
+            fillingTable(data);});
 
         buttonPanel.getChildren().addAll(addButton, editButton, deleteButton, statsButton);
 

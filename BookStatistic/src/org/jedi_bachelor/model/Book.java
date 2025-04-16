@@ -55,6 +55,8 @@ public class Book implements Serializable, Comparable<Book>{
         return id;
     }
 
+    public void setId(int _id) { this.id = _id; }
+
     public String getNameOfBook() {
         return nameOfBook;
     }
