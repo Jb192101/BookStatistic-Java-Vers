@@ -14,11 +14,11 @@ import org.jedi_bachelor.model.Book;
 public class InputDataWindow {
     private final Stage stage;
     private Book resultBook;
-    private final TextField titleField = new TextField();
-    private final TextField authorField = new TextField();
-    private final Spinner<Integer> pagesReadSpinner = new Spinner<>(0, Integer.MAX_VALUE, 0);
-    private final Spinner<Integer> totalPagesSpinner = new Spinner<>(1, Integer.MAX_VALUE, 1);
-    private final Label errorLabel = new Label();
+    protected final TextField titleField = new TextField();
+    protected final TextField authorField = new TextField();
+    protected final Spinner<Integer> pagesReadSpinner = new Spinner<>(0, Integer.MAX_VALUE, 0);
+    protected final Spinner<Integer> totalPagesSpinner = new Spinner<>(1, Integer.MAX_VALUE, 1);
+    protected final Label errorLabel = new Label();
 
     public InputDataWindow() {
         stage = new Stage();

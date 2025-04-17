@@ -89,6 +89,11 @@ public class MainWindow extends Stage {
             bvm.openInputDataWindow();
             fillingTable(data);});
 
+        editButton.setOnAction(e -> {
+            bvm.openInputIndexWindow();
+            fillingTable(data);
+        });
+
         buttonPanel.getChildren().addAll(addButton, editButton, deleteButton, statsButton);
 
         HBox bottomPanel = new HBox();
