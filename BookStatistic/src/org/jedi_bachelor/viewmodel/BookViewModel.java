@@ -50,4 +50,9 @@ public class BookViewModel {
         this.model.updateData(_newBook);
     }
 
+    // Поиск за O(n). Потом придумай, как сделать за O(1)
+    public void changeBook(Book _book) {
+        this.model.changeBook(_book);
+    }
+
 }

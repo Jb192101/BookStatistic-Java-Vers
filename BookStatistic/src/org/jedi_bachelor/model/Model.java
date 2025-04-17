@@ -42,6 +42,21 @@ public class Model {
     public void updateData(Book _newBook) {
         _newBook.setId(this.books.size()+1);
         this.books.add(_newBook);
+
+        updateFileBooks();
+    }
+
+    public void changeBook(Book _book) {
+        int id = _book.getId();
+        books.get(id).setNameOfBook(_book.getNameOfBook());
+        books.get(id).setAuthorOfBook(_book.getAuthorOfBook());
+        books.get(id).setAllPages(_book.getAllPages());
+        books.get(id).setCompletePages(_book.getCompletePages());
+
+        updateFileBooks();
+    }
+
+    private void updateFileBooks() {
         try {
             FileOutputStream fos = new FileOutputStream(PATH_TO_FILE_BOOKS);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -54,5 +69,4 @@ public class Model {
         }
     }
 
-    
 }

@@ -8,15 +8,19 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.File;
+
 public class SplashScreen {
+    private final String PATH_TO_IMAGE = "src/resources/splash.png";
+
     private Stage splashStage;
     private ProgressBar progressBar;
 
     public void show() {
-        //ImageView splashImage = new ImageView(new Image(getClass().getResource("splash.png")));
-        //splashImage.setFitWidth(400);
-        //splashImage.setFitHeight(300);
-        //splashImage.setPreserveRatio(true);
+        ImageView splashImage = new ImageView(new Image(new File(PATH_TO_IMAGE).toURI().toString()));
+        splashImage.setFitWidth(400);
+        splashImage.setFitHeight(300);
+        splashImage.setPreserveRatio(true);
 
         progressBar = new ProgressBar();
         progressBar.setPrefWidth(400);

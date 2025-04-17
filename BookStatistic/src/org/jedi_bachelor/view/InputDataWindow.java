@@ -12,34 +12,25 @@ import java.time.LocalDate;
 import org.jedi_bachelor.model.Book;
 
 public class InputDataWindow {
-    private final Stage stage;
+    protected final Stage stage;
     private Book resultBook;
     protected final TextField titleField = new TextField();
     protected final TextField authorField = new TextField();
-    protected final Spinner<Integer> pagesReadSpinner = new Spinner<>(0, Integer.MAX_VALUE, 0);
-    protected final Spinner<Integer> totalPagesSpinner = new Spinner<>(1, Integer.MAX_VALUE, 1);
+    protected Spinner<Integer> pagesReadSpinner;
+    protected Spinner<Integer> totalPagesSpinner;
     protected final Label errorLabel = new Label();
+    protected Button addButton;
 
     public InputDataWindow() {
         stage = new Stage();
         stage.initModality(Modality.WINDOW_MODAL);
-        stage.setTitle("Добавить новую книгу");
+        stage.setTitle("Редактировать книгу");
+
+        pagesReadSpinner = new Spinner<>(0, Integer.MAX_VALUE, 0);
+        totalPagesSpinner = new Spinner<>(1, Integer.MAX_VALUE, 1);
 
         setupUI();
         setupValidation();
-    }
-
-    public InputDataWindow(Book _bookToEdit) {
-        this();
-        fillFields(_bookToEdit);
-        stage.setTitle("Редактировать книгу");
-    }
-
-    private void fillFields(Book _book) {
-        titleField.setText(_book.getNameOfBook());
-        authorField.setText(_book.getAuthorOfBook());
-        pagesReadSpinner.getValueFactory().setValue(_book.getCompletePages());
-        totalPagesSpinner.getValueFactory().setValue(_book.getAllPages());
     }
 
     private void setupUI() {
@@ -63,7 +54,7 @@ public class InputDataWindow {
         grid.add(totalPagesSpinner, 1, 3);
 
         // Кнопка добавления
-        Button addButton = new Button("Добавить");
+        addButton = new Button("Добавить");
         addButton.setOnAction(e -> validateAndAdd());
         grid.add(addButton, 0, 4, 2, 1);
 
@@ -85,7 +76,7 @@ public class InputDataWindow {
         });
     }
 
-    private void validateAndAdd() {
+    protected void validateAndAdd() {
         errorLabel.setText("");
 
         if (titleField.getText().trim().isEmpty()) {
