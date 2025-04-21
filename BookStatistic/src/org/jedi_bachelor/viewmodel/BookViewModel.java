@@ -20,9 +20,9 @@ public class BookViewModel {
         this.model = _model;
     }
 
-    public Model getModel() {
-        return model;
-    }
+    //public Model getModel() {
+    //    return model;
+    //}
 
     public void openInputDataWindow() {
         InputDataWindow inputWindow = new InputDataWindow();
@@ -33,7 +33,9 @@ public class BookViewModel {
 
     public void openChangeWindow(int _index, BookViewModel _bvm) {
         ChangeWindow changeWindow = new ChangeWindow(_index, _bvm);
-        changeWindow.showAndWait();
+        Book newBook = changeWindow.showAndWait();
+        updateBookModel(newBook);
+        System.out.println(newBook);
     }
 
     public void openInputIndexWindow() {
@@ -47,12 +49,14 @@ public class BookViewModel {
     }
 
     private void updateBookModel(Book _newBook) {
-        this.model.updateData(_newBook);
+        this.model.updateDataAddBook(_newBook);
     }
 
     // Поиск за O(n). Потом придумай, как сделать за O(1)
-    public void changeBook(Book _book) {
-        this.model.changeBook(_book);
+    public void changeBook(Book _book) { this.model.changeBook(_book); }
+
+    public Book searchBookByID(int _index) {
+        return model.searchBook(_index);
     }
 
 }

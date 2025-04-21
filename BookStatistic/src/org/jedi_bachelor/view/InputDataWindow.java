@@ -10,9 +10,10 @@ import javafx.stage.Stage;
 import java.time.LocalDate;
 
 import org.jedi_bachelor.model.Book;
+import org.jedi_bachelor.viewmodel.BookViewModel;
 
 public class InputDataWindow {
-    protected final Stage stage;
+    protected Stage stage;
     private Book resultBook;
     protected final TextField titleField = new TextField();
     protected final TextField authorField = new TextField();
@@ -26,14 +27,17 @@ public class InputDataWindow {
         stage.initModality(Modality.WINDOW_MODAL);
         stage.setTitle("Редактировать книгу");
 
-        pagesReadSpinner = new Spinner<>(0, Integer.MAX_VALUE, 0);
-        totalPagesSpinner = new Spinner<>(1, Integer.MAX_VALUE, 1);
-
+        setupSpinners();
         setupUI();
         setupValidation();
     }
 
-    private void setupUI() {
+    protected void setupSpinners() {
+        pagesReadSpinner = new Spinner<>(0, Integer.MAX_VALUE, 0);
+        totalPagesSpinner = new Spinner<>(1, Integer.MAX_VALUE, 1);
+    }
+
+    protected void setupUI() {
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
@@ -68,7 +72,7 @@ public class InputDataWindow {
         stage.setResizable(false);
     }
 
-    private void setupValidation() {
+    protected void setupValidation() {
         totalPagesSpinner.valueProperty().addListener((obs, oldVal, newVal) -> {
             if (pagesReadSpinner.getValue() > newVal) {
                 pagesReadSpinner.getValueFactory().setValue(newVal);

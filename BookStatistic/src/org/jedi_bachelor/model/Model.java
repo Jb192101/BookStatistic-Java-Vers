@@ -39,19 +39,26 @@ public class Model {
         }
     }
 
-    public void updateData(Book _newBook) {
+    public void updateDataAddBook(Book _newBook) {
         _newBook.setId(this.books.size()+1);
-        this.books.add(_newBook);
+        this.books.addFirst(_newBook);
 
         updateFileBooks();
     }
 
     public void changeBook(Book _book) {
         int id = _book.getId();
-        books.get(id).setNameOfBook(_book.getNameOfBook());
-        books.get(id).setAuthorOfBook(_book.getAuthorOfBook());
-        books.get(id).setAllPages(_book.getAllPages());
-        books.get(id).setCompletePages(_book.getCompletePages());
+
+        Book medBook = searchBook(id);
+        books.remove(medBook);
+
+        medBook.setNameOfBook(_book.getNameOfBook());
+        medBook.setAuthorOfBook(_book.getAuthorOfBook());
+        medBook.setAllPages(_book.getAllPages());
+        medBook.setCompletePages(_book.getCompletePages());
+        medBook.setFinishDate(_book.getFinishDate());
+
+        books.add(medBook);
 
         updateFileBooks();
     }
@@ -76,8 +83,7 @@ public class Model {
             }
         }
 
-        // Если книги с таким ID нет
-        return null;
+        return new Book();
     }
 
 }

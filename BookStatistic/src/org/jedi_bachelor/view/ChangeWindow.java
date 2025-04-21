@@ -1,6 +1,9 @@
 package org.jedi_bachelor.view;
 
 import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.jedi_bachelor.model.Book;
 import org.jedi_bachelor.viewmodel.BookViewModel;
 
@@ -8,22 +11,44 @@ import java.time.LocalDate;
 
 public class ChangeWindow extends InputDataWindow {
     private BookViewModel bvm;
-    Book searchingBook;
+    private Book searchingBook;
 
     public ChangeWindow(int _index, BookViewModel _bvm) {
-        super();
-        this.bvm = _bvm;
+        if(_bvm != null) {
+            this.bvm = _bvm;
+            searchingBook = bvm.searchBookByID(_index);
+            //System.out.println(searchingBook);
+            stage = new Stage();
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.setTitle("Редактировать книгу");
 
-        searchingBook = bvm.getModel().searchBook(_index);
+            setupSpinners();
+            setupUI();
+            setupValidation();
 
-        fillingFields();
+            fillingFields();
+        }
     }
 
     private void fillingFields() {
         this.titleField.setText(searchingBook.getNameOfBook());
         this.authorField.setText(searchingBook.getAuthorOfBook());
-        this.pagesReadSpinner = new Spinner<>(0, Integer.MAX_VALUE, searchingBook.getCompletePages());
-        this.totalPagesSpinner = new Spinner<>(0, Integer.MAX_VALUE, searchingBook.getAllPages());
+    }
+
+    @Override
+    protected void setupSpinners() {
+        this.pagesReadSpinner = new Spinner<>();
+        this.totalPagesSpinner = new Spinner<>();
+
+        SpinnerValueFactory.IntegerSpinnerValueFactory factory1 =
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, Integer.MAX_VALUE, searchingBook.getCompletePages());
+
+        pagesReadSpinner.setValueFactory(factory1);
+
+        SpinnerValueFactory.IntegerSpinnerValueFactory factory2 =
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, Integer.MAX_VALUE, searchingBook.getAllPages());
+
+        totalPagesSpinner.setValueFactory(factory2);
     }
 
     @Override
@@ -53,7 +78,6 @@ public class ChangeWindow extends InputDataWindow {
         searchingBook.setNameOfBook(titleField.getText());
         searchingBook.setCompletePages(pagesReadSpinner.getValue());
         searchingBook.setAllPages(totalPagesSpinner.getValue());
-
 
         bvm.changeBook(searchingBook);
 
