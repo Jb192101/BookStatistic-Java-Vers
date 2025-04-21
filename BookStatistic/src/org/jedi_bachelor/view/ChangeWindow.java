@@ -84,6 +84,7 @@ public class ChangeWindow {
         searchingBook.setNameOfBook(titleField.getText());
         searchingBook.setCompletePages(pagesReadSpinner.getValue());
         searchingBook.setAllPages(totalPagesSpinner.getValue());
+        searchingBook.changeProcent();
 
         bvm.changeBook(searchingBook);
 

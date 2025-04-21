@@ -23,13 +23,13 @@ public class Book implements Serializable, Comparable<Book>{
     private float procentOfReaded;
 
     public Book(String _nameOfBook, String _authorOfBook, int _completePages, int _allPages, LocalDate _ld) {
-        if(_completePages < _allPages && _completePages >= 0 && _allPages > 0) {
+        if(_completePages <= _allPages && _completePages >= 0 && _allPages > 0) {
             this.nameOfBook = _nameOfBook;
             this.authorOfBook = _authorOfBook;
             this.completePages = _completePages;
             this.allPages = _allPages;
             this.startDate = _ld;
-            this.procentOfReaded = (float) this.completePages / this.allPages;
+            changeProcent();
         }
     }
 
@@ -82,9 +82,11 @@ public class Book implements Serializable, Comparable<Book>{
     }
 
     public void setCompletePages(int _completePages) {
-        if(_completePages < this.allPages && _completePages >= 0 && _completePages >= this.completePages)
+        if(_completePages <= this.allPages && _completePages >= 0 && _completePages >= this.completePages)
             this.completePages = _completePages;
     }
+
+    public void changeProcent() { this.procentOfReaded = (float) this.completePages / this.allPages; }
 
     public int getAllPages() {
         return allPages;
