@@ -14,7 +14,7 @@ public class ChangeWindow extends InputDataWindow {
         super();
         this.bvm = _bvm;
 
-        searchingBook = bvm.getModel().getBooks().get(_index-1);
+        searchingBook = bvm.getModel().searchBook(_index);
 
         fillingFields();
     }

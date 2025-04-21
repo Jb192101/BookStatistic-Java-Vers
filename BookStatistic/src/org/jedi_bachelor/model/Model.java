@@ -69,4 +69,15 @@ public class Model {
         }
     }
 
+    public Book searchBook(int _id) {
+        for(Book book : this.books) {
+            if(book.getId() == _id) {
+                return book;
+            }
+        }
+
+        // Если книги с таким ID нет
+        return null;
+    }
+
 }

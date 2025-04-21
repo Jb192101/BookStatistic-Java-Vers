@@ -20,11 +20,9 @@ public class Main extends Application {
         SplashScreen splashScreen = new SplashScreen();
         splashScreen.show();
 
-        // Имитируем загрузку в фоновом потоке
         Task<Void> task = new Task<>() {
             @Override
             protected Void call() throws Exception {
-                // Имитация загрузки ресурсов
                 for (int i = 0; i <= 100; i++) {
                     Thread.sleep(30);
                     final int progress = i;
