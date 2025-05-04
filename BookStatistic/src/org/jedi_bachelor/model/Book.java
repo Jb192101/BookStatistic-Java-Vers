@@ -13,7 +13,7 @@ public class Book implements Serializable, Comparable<Book>{
     @Serial
     private static final long serialVersionUID = 823478973782L;
 
-    //private int id; <- id становится ключом в HashMap
+    private int id = -1; //<- id становится ключом в HashMap
     private String nameOfBook;
     private String authorOfBook;
     private int completePages;
@@ -32,6 +32,8 @@ public class Book implements Serializable, Comparable<Book>{
             changeProcent();
         }
     }
+
+    public void setId(int _id) { id = _id;}
 
     // Пустой конструктор
     public Book() {
@@ -90,9 +92,9 @@ public class Book implements Serializable, Comparable<Book>{
         this.allPages = _allPages;
     }
 
-    public LocalDate getStartDate() { return startDate; }
+    //public LocalDate getStartDate() { return startDate; }
 
-    public void setStartDate(LocalDate startDate) { this.startDate = startDate; }
+    //public void setStartDate(LocalDate startDate) { this.startDate = startDate; }
 
     public LocalDate getFinishDate() { return finishDate; }
 
@@ -101,6 +103,7 @@ public class Book implements Serializable, Comparable<Book>{
     @Override
     public String toString() {
         return "Book{" +
+                "id=" + id +
                 ", nameOfBook='" + nameOfBook + '\'' +
                 ", authorOfBook='" + authorOfBook + '\'' +
                 ", completePages=" + completePages +

@@ -42,13 +42,20 @@ public class Model {
     }
 
     public void updateDataAddBook(Book _newBook) {
+        _newBook.setId(this.books.size() + 1);
         this.books.put(this.books.size() + 1, _newBook);
 
         updateFileBooks();
     }
 
     public void changeBook(Book _book) {
-        int id;
+        int id = 0;
+        if(this.books.containsValue(_book))
+            for(int idIterator : this.books.keySet())
+                if (this.books.get(idIterator).equals(_book)) {
+                    id = idIterator;
+                    break;
+                }
 
         Book medBook = searchBook(id);
         books.remove(id, medBook);

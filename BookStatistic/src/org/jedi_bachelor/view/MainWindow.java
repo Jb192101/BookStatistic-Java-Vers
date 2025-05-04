@@ -2,6 +2,7 @@ package org.jedi_bachelor.view;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -42,7 +43,7 @@ public class MainWindow extends Stage {
 
         TableView<Book> table = new TableView<>();
 
-        TableColumn<Book, String> idColumn = new TableColumn<>("ID");
+        TableColumn<Book, Integer> idColumn = new TableColumn<>("  ID  ");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
         TableColumn<Book, String> titleColumn = new TableColumn<>("Название книги");
@@ -63,11 +64,18 @@ public class MainWindow extends Stage {
         TableColumn<Book, LocalDate> endDateColumn = new TableColumn<>("Дата окончания чтения");
         endDateColumn.setCellValueFactory(new PropertyValueFactory<>("finishDate"));
 
-        TableColumn<Book, Float> procentColumn = new TableColumn<>("% прочитан.");
-        procentColumn.setCellValueFactory(new PropertyValueFactory<>("procentOfReaded"));
+        TableColumn<Book, Float> procColumn = new TableColumn<>("% прочитан.");
+        procColumn.setCellValueFactory(new PropertyValueFactory<>("procentOfReaded"));
 
-        table.getColumns().addAll(idColumn, titleColumn, authorColumn, pagesReadColumn,
-                totalPagesColumn, startDateColumn, endDateColumn, procentColumn);
+        //table.getColumns().addAll(idColumn, titleColumn, authorColumn, pagesReadColumn, totalPagesColumn, startDateColumn, endDateColumn, procColumn);
+        table.getColumns().add(idColumn);
+        table.getColumns().add(titleColumn);
+        table.getColumns().add(authorColumn);
+        table.getColumns().add(pagesReadColumn);
+        table.getColumns().add(totalPagesColumn);
+        table.getColumns().add(startDateColumn);
+        table.getColumns().add(endDateColumn);
+        table.getColumns().add(procColumn);
 
         // Заполнение таблицы
         ObservableList<Book> data = FXCollections.observableArrayList();
@@ -118,12 +126,11 @@ public class MainWindow extends Stage {
         _data.clear();
         Map<Integer, Book> bookList = bvm.readFromBookModel();
 
-        int count = bookList.size();
-        if(count == 0) {
+        if(bookList.isEmpty()) {
             return;
         }
 
-        for(int i = 0; i < count; i++) {
+        for(int i : bookList.keySet()) {
             _data.add(bookList.get(i));
         }
     }

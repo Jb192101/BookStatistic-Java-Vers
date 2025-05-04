@@ -25,7 +25,7 @@ public class InputDataWindow {
     public InputDataWindow() {
         stage = new Stage();
         stage.initModality(Modality.WINDOW_MODAL);
-        stage.setTitle("Редактировать книгу");
+        stage.setTitle("Добавить книгу");
 
         setupSpinners();
         setupUI();
@@ -108,8 +108,6 @@ public class InputDataWindow {
                 totalPages,
                 LocalDate.now()
         );
-
-
 
         stage.close();
     }
