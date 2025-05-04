@@ -19,7 +19,7 @@ import org.jedi_bachelor.model.Book;
 import org.jedi_bachelor.viewmodel.BookViewModel;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.Map;
 
 public class MainWindow extends Stage {
     private BookViewModel bvm;
@@ -116,15 +116,15 @@ public class MainWindow extends Stage {
 
     private void fillingTable(ObservableList<Book> _data) {
         _data.clear();
-        ArrayList<Book> bookArrayList = bvm.readFromBookModel();
+        Map<Integer, Book> bookList = bvm.readFromBookModel();
 
-        int count = bookArrayList.size();
+        int count = bookList.size();
         if(count == 0) {
             return;
         }
 
         for(int i = 0; i < count; i++) {
-            _data.add(bookArrayList.get(i));
+            _data.add(bookList.get(i));
         }
     }
 

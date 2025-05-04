@@ -6,7 +6,7 @@ import org.jedi_bachelor.view.ChangeWindow;
 import org.jedi_bachelor.view.InputDataWindow;
 import org.jedi_bachelor.view.InputIndexWindow;
 
-import java.util.ArrayList;
+import java.util.Map;
 
 public class BookViewModel {
 
@@ -48,7 +48,7 @@ public class BookViewModel {
     }
 
     // Метод чтения из файла в модель
-    public ArrayList<Book> readFromBookModel() {
+    public Map<Integer, Book> readFromBookModel() {
         return this.model.getBooks();
     }
 

@@ -2,27 +2,29 @@ package org.jedi_bachelor.model;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Model {
     private final String PATH_TO_FILE_BOOKS = "src/resources/data_files/books.bin";
     private final String PATH_TO_FILE_MONTH = "src/resources/data_files/monthStatistic.bin";
     private final String PATH_TO_FILE_TEMPS = "src/resources/data_files/tempsStatistic.bin";
 
-    private ArrayList<Book> books = new ArrayList<>();
+    private Map<Integer, Book> books = new HashMap<>();
 
     public Model() {
         readFromFile();
     }
 
-    public void addBook(Book _newBook) {
-        books.add(_newBook);
+    public void addBook(int _id, Book _newBook) {
+        books.put(_id, _newBook);
     }
 
-    public ArrayList<Book> getBooks() {
+    public Map<Integer, Book> getBooks() {
         return books;
     }
 
-    public void setBooks(ArrayList<Book> _listBooks) {
+    public void setBooks(Map<Integer, Book> _listBooks) {
         books = _listBooks;
     }
 
@@ -31,7 +33,7 @@ public class Model {
             FileInputStream fis = new FileInputStream(PATH_TO_FILE_BOOKS);
             ObjectInputStream ois = new ObjectInputStream(fis);
 
-            this.books = (ArrayList<Book>) ois.readObject();
+            this.books = (HashMap<Integer, Book>) ois.readObject();
 
             ois.close();
         } catch(IOException | ClassNotFoundException ex) {
@@ -40,17 +42,16 @@ public class Model {
     }
 
     public void updateDataAddBook(Book _newBook) {
-        _newBook.setId(this.books.size()+1);
-        this.books.addFirst(_newBook);
+        this.books.put(this.books.size() + 1, _newBook);
 
         updateFileBooks();
     }
 
     public void changeBook(Book _book) {
-        int id = _book.getId();
+        int id;
 
         Book medBook = searchBook(id);
-        books.remove(medBook);
+        books.remove(id, medBook);
 
         medBook.setNameOfBook(_book.getNameOfBook());
         medBook.setAuthorOfBook(_book.getAuthorOfBook());
@@ -58,7 +59,7 @@ public class Model {
         medBook.setCompletePages(_book.getCompletePages());
         medBook.setFinishDate(_book.getFinishDate());
 
-        books.add(medBook);
+        books.put(id, medBook);
 
         updateFileBooks();
     }
@@ -77,11 +78,8 @@ public class Model {
     }
 
     public Book searchBook(int _id) {
-        for(Book book : this.books) {
-            if(book.getId() == _id) {
-                return book;
-            }
-        }
+        if(this.books.containsKey(_id))
+            return this.books.get(_id);
 
         return new Book();
     }

@@ -11,9 +11,9 @@ import java.util.Objects;
 
 public class Book implements Serializable, Comparable<Book>{
     @Serial
-    private static final long serialVersionUID = 823478973783L;
+    private static final long serialVersionUID = 823478973782L;
 
-    private int id;
+    //private int id; <- id становится ключом в HashMap
     private String nameOfBook;
     private String authorOfBook;
     private int completePages;
@@ -43,19 +43,13 @@ public class Book implements Serializable, Comparable<Book>{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return id == book.id && completePages == book.completePages && allPages == book.allPages && Objects.equals(nameOfBook, book.nameOfBook) && Objects.equals(authorOfBook, book.authorOfBook) && Objects.equals(startDate, book.startDate) && Objects.equals(finishDate, book.finishDate);
+        return completePages == book.completePages && allPages == book.allPages && Objects.equals(nameOfBook, book.nameOfBook) && Objects.equals(authorOfBook, book.authorOfBook) && Objects.equals(startDate, book.startDate) && Objects.equals(finishDate, book.finishDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nameOfBook, authorOfBook, completePages, allPages, startDate, finishDate);
+        return Objects.hash(nameOfBook, authorOfBook, completePages, allPages, startDate, finishDate);
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int _id) { this.id = _id; }
 
     public String getNameOfBook() {
         return nameOfBook;
@@ -107,7 +101,6 @@ public class Book implements Serializable, Comparable<Book>{
     @Override
     public String toString() {
         return "Book{" +
-                "id=" + id +
                 ", nameOfBook='" + nameOfBook + '\'' +
                 ", authorOfBook='" + authorOfBook + '\'' +
                 ", completePages=" + completePages +
