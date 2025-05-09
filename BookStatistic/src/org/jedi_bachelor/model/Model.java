@@ -38,10 +38,12 @@ public class Model {
         books = bfr.getObject();
     }
 
+    /*
     private void writeToFile(HashMap<Integer, Book> _books) {
         bfw.setObject(_books);
         bfw.write();
     }
+     */
 
     public void updateDataAddBook(Book _newBook) {
         _newBook.setId(this.books.size() + 1);

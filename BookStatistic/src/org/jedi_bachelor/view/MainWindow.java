@@ -43,7 +43,7 @@ public class MainWindow extends Stage {
 
         TableView<Book> table = new TableView<>();
 
-        TableColumn<Book, Integer> idColumn = new TableColumn<>("  ID  ");
+        TableColumn<Book, Integer> idColumn = new TableColumn<>("ID");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
         TableColumn<Book, String> titleColumn = new TableColumn<>("Название книги");
@@ -67,7 +67,6 @@ public class MainWindow extends Stage {
         TableColumn<Book, Float> procColumn = new TableColumn<>("% прочитан.");
         procColumn.setCellValueFactory(new PropertyValueFactory<>("procentOfReaded"));
 
-        //table.getColumns().addAll(idColumn, titleColumn, authorColumn, pagesReadColumn, totalPagesColumn, startDateColumn, endDateColumn, procColumn);
         table.getColumns().add(idColumn);
         table.getColumns().add(titleColumn);
         table.getColumns().add(authorColumn);

@@ -9,13 +9,11 @@ import org.jedi_bachelor.view.InputIndexWindow;
 import java.util.Map;
 
 public class BookViewModel {
-
     private Model model;
 
     public BookViewModel() {
         this.model = new Model();
     }
-
     public BookViewModel(Model _model) {
         this.model = _model;
     }
