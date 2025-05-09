@@ -1,24 +1,44 @@
 package org.jedi_bachelor.model;
 
+/*
+В данном классе Date - это собственный класс
+ */
+
 import org.jedi_bachelor.utils.BinFileReader;
 import org.jedi_bachelor.utils.BinFileWriter;
 
-import java.io.*;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Model {
     private final String PATH_TO_FILE_BOOKS = "src/resources/data_files/books.bin";
-    //private final String PATH_TO_FILE_MONTH = "src/resources/data_files/monthStatistic.bin";
-    //private final String PATH_TO_FILE_TEMPS = "src/resources/data_files/tempsStatistic.bin";
+    private final String PATH_TO_FILE_MONTH = "src/resources/data_files/monthStatistic.bin";
+    private final String PATH_TO_FILE_TEMPS = "src/resources/data_files/tempsStatistic.bin";
 
-    private BinFileReader<HashMap<Integer, Book>> bfr;
-    private BinFileWriter<HashMap<Integer, Book>> bfw;
-    private HashMap<Integer, Book> books = new HashMap<>();
+    // Утилиты для записи
+    // Для добавления/изменения книг
+    private final BinFileReader<HashMap<Integer, Book>> bfrBooks;
+    private final BinFileWriter<HashMap<Integer, Book>> bfwBooks;
+
+    // Для темпов чтения
+    private final BinFileReader<HashMap<Date, Integer>> bfrStat;
+    private final BinFileWriter<HashMap<Date, Integer>> bfwStat;
+
+    private HashMap<Integer, Book> books;
+    private HashMap<Date, Integer> monthTemps;
+    private HashMap<Date, Integer> monthStat;
 
     public Model() {
-        bfr = new BinFileReader<>(PATH_TO_FILE_BOOKS);
-        bfw = new BinFileWriter<>(PATH_TO_FILE_BOOKS, books);
+        bfrBooks = new BinFileReader<>(new File(PATH_TO_FILE_BOOKS));
+        bfwBooks = new BinFileWriter<>(PATH_TO_FILE_BOOKS, books);
+
+        bfrStat = new BinFileReader<>(new File(PATH_TO_FILE_TEMPS)); // первоначально так
+        bfwStat = new BinFileWriter<>(PATH_TO_FILE_TEMPS, monthTemps);
+
+        books = new HashMap<>();
+        monthTemps = new HashMap<>();
+        monthStat = new HashMap<>();
 
         readFromFile();
     }
@@ -26,24 +46,19 @@ public class Model {
     public void addBook(int _id, Book _newBook) {
         books.put(_id, _newBook);
     }
+
     public Map<Integer, Book> getBooks() {
-        return books;
+        return this.books;
     }
+
     public void setBooks(HashMap<Integer, Book> _listBooks) {
         books = _listBooks;
     }
 
     private void readFromFile() {
-        bfr.read();
-        books = bfr.getObject();
+        bfrBooks.read();
+        books = bfrBooks.getObject();
     }
-
-    /*
-    private void writeToFile(HashMap<Integer, Book> _books) {
-        bfw.setObject(_books);
-        bfw.write();
-    }
-     */
 
     public void updateDataAddBook(Book _newBook) {
         _newBook.setId(this.books.size() + 1);
@@ -54,14 +69,27 @@ public class Model {
 
     public void changeBook(Book _book) {
         int id = 0;
+        int changedPages = 0;
         if(this.books.containsValue(_book))
             for(int idIterator : this.books.keySet())
                 if (this.books.get(idIterator).equals(_book)) {
                     id = idIterator;
                     break;
                 }
-
         Book medBook = searchBook(id);
+
+        changedPages = _book.getCompletePages() - medBook.getCompletePages();
+        if(changedPages < 0)
+            changedPages *= -1;
+
+        if(!monthTemps.containsKey(Date.now())) {
+            monthTemps.put(Date.now(), changedPages);
+        } else {
+            monthTemps.put(Date.now(), monthTemps.get(Date.now()) + changedPages);
+        }
+
+        System.out.println(monthTemps);
+
         books.remove(id, medBook);
 
         medBook.setNameOfBook(_book.getNameOfBook());
@@ -76,16 +104,7 @@ public class Model {
     }
 
     private void updateFileBooks() {
-        try {
-            FileOutputStream fos = new FileOutputStream(PATH_TO_FILE_BOOKS);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-
-            oos.writeObject(this.books);
-
-            oos.close();
-        } catch(IOException ex) {
-            ex.printStackTrace();
-        }
+        bfwBooks.write();
     }
 
     public Book searchBook(int _id) {

@@ -88,8 +88,8 @@ public class MainWindow extends Stage {
 
         Button addButton = new Button("Добавить");
         Button editButton = new Button("Редактировать");
-        Button deleteButton = new Button("Удалить");
-        Button statsButton = new Button("Статистика");
+        Button statMonthButton = new Button("Стата");
+        Button statTempsButton = new Button("Темпы");
 
         addButton.setOnAction(e -> {
             bvm.openInputDataWindow();
@@ -100,7 +100,7 @@ public class MainWindow extends Stage {
             fillingTable(data);
         });
 
-        buttonPanel.getChildren().addAll(addButton, editButton, deleteButton, statsButton);
+        buttonPanel.getChildren().addAll(addButton, editButton, statMonthButton, statTempsButton);
 
         HBox bottomPanel = new HBox();
         bottomPanel.setPadding(new Insets(10));
@@ -122,14 +122,18 @@ public class MainWindow extends Stage {
 
     private void fillingTable(ObservableList<Book> _data) {
         _data.clear();
-        Map<Integer, Book> bookList = bvm.readFromBookModel();
 
-        if(bookList.isEmpty()) {
-            return;
-        }
+        try {
+            Map<Integer, Book> bookList = bvm.readFromBookModel();
+            if(bookList.isEmpty()) {
+                return;
+            }
 
-        for(int i : bookList.keySet()) {
-            _data.add(bookList.get(i));
+            for (int i : bookList.keySet()) {
+                _data.add(bookList.get(i));
+            }
+        } catch(NullPointerException ex) {
+            ex.printStackTrace();
         }
     }
 
