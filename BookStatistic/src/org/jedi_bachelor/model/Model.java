@@ -1,44 +1,46 @@
 package org.jedi_bachelor.model;
 
+import org.jedi_bachelor.utils.BinFileReader;
+import org.jedi_bachelor.utils.BinFileWriter;
+
 import java.io.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Model {
     private final String PATH_TO_FILE_BOOKS = "src/resources/data_files/books.bin";
-    private final String PATH_TO_FILE_MONTH = "src/resources/data_files/monthStatistic.bin";
-    private final String PATH_TO_FILE_TEMPS = "src/resources/data_files/tempsStatistic.bin";
+    //private final String PATH_TO_FILE_MONTH = "src/resources/data_files/monthStatistic.bin";
+    //private final String PATH_TO_FILE_TEMPS = "src/resources/data_files/tempsStatistic.bin";
 
-    private Map<Integer, Book> books = new HashMap<>();
+    private BinFileReader<HashMap<Integer, Book>> bfr;
+    private BinFileWriter<HashMap<Integer, Book>> bfw;
+    private HashMap<Integer, Book> books = new HashMap<>();
 
     public Model() {
+        bfr = new BinFileReader<>(PATH_TO_FILE_BOOKS);
+        bfw = new BinFileWriter<>(PATH_TO_FILE_BOOKS, books);
+
         readFromFile();
     }
 
     public void addBook(int _id, Book _newBook) {
         books.put(_id, _newBook);
     }
-
     public Map<Integer, Book> getBooks() {
         return books;
     }
-
-    public void setBooks(Map<Integer, Book> _listBooks) {
+    public void setBooks(HashMap<Integer, Book> _listBooks) {
         books = _listBooks;
     }
 
     private void readFromFile() {
-        try {
-            FileInputStream fis = new FileInputStream(PATH_TO_FILE_BOOKS);
-            ObjectInputStream ois = new ObjectInputStream(fis);
+        bfr.read();
+        books = bfr.getObject();
+    }
 
-            this.books = (HashMap<Integer, Book>) ois.readObject();
-
-            ois.close();
-        } catch(IOException | ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }
+    private void writeToFile(HashMap<Integer, Book> _books) {
+        bfw.setObject(_books);
+        bfw.write();
     }
 
     public void updateDataAddBook(Book _newBook) {

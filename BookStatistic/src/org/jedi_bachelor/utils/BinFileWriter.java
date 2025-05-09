@@ -9,8 +9,8 @@ public class BinFileWriter<T> {
     private File file;
     private T object;
 
-    public BinFileWriter(File _file, T _object) {
-        setFile(_file);
+    public BinFileWriter(String _filePath, T _object) {
+        setFile(_filePath);
         this.object = _object;
     }
 
@@ -30,9 +30,12 @@ public class BinFileWriter<T> {
     public File getFile() { return this.file; }
     public T getObject() { return this.object; }
 
+    public void setFile(String _file) {
+        this.file = new File(_file);
+    }
+
     public void setFile(File _file) {
-        if(_file.canWrite())
-            this.file = _file;
+        this.file = _file;
     }
 
     public void setObject(T _object) {
