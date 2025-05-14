@@ -1,0 +1,117 @@
+package org.jedi_bachelor.model;
+
+/*
+В данном классе Date - это собственный класс
+ */
+
+import org.jedi_bachelor.utils.BinFileReader;
+import org.jedi_bachelor.utils.BinFileWriter;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Model {
+    private final String PATH_TO_FILE_BOOKS = "main/resources/data_files/books.bs";
+    private final String PATH_TO_FILE_MONTH = "main/resources/data_files/monthStatistic.bs";
+    private final String PATH_TO_FILE_TEMPS = "main/resources/data_files/tempsStatistic.bs";
+
+    // Утилиты для записи
+    // Для добавления/изменения книг
+    private final BinFileReader<HashMap<Integer, Book>> bfrBooks;
+    private final BinFileWriter<HashMap<Integer, Book>> bfwBooks;
+
+    // Для темпов чтения
+    private final BinFileReader<HashMap<Date, Integer>> bfrStat;
+    private final BinFileWriter<HashMap<Date, Integer>> bfwStat;
+
+    private HashMap<Integer, Book> books;
+    private HashMap<Date, Integer> monthTemps;
+    private HashMap<Date, Integer> monthStat;
+
+    public Model() {
+        bfrBooks = new BinFileReader<>(new File(PATH_TO_FILE_BOOKS));
+        bfwBooks = new BinFileWriter<>(PATH_TO_FILE_BOOKS, books);
+
+        bfrStat = new BinFileReader<>(new File(PATH_TO_FILE_TEMPS)); // первоначально так
+        bfwStat = new BinFileWriter<>(PATH_TO_FILE_TEMPS, monthTemps);
+
+        books = new HashMap<>();
+        monthTemps = new HashMap<>();
+        monthStat = new HashMap<>();
+
+        readFromFile();
+    }
+
+    public void addBook(int _id, Book _newBook) {
+        books.put(_id, _newBook);
+    }
+
+    public Map<Integer, Book> getBooks() {
+        return this.books;
+    }
+
+    public void setBooks(HashMap<Integer, Book> _listBooks) {
+        books = _listBooks;
+    }
+
+    private void readFromFile() {
+        bfrBooks.read();
+        books = bfrBooks.getObject();
+    }
+
+    public void updateDataAddBook(Book _newBook) {
+        _newBook.setId(this.books.size() + 1);
+        this.books.put(this.books.size() + 1, _newBook);
+
+        updateFileBooks();
+    }
+
+    public void changeBook(Book _book) {
+        int id = 0;
+        int changedPages = 0;
+        if(this.books.containsValue(_book))
+            for(int idIterator : this.books.keySet())
+                if (this.books.get(idIterator).equals(_book)) {
+                    id = idIterator;
+                    break;
+                }
+        Book medBook = searchBook(id);
+
+        changedPages = _book.getCompletePages() - medBook.getCompletePages();
+        if(changedPages < 0)
+            changedPages *= -1;
+
+        if(!monthTemps.containsKey(Date.now())) {
+            monthTemps.put(Date.now(), changedPages);
+        } else {
+            monthTemps.put(Date.now(), monthTemps.get(Date.now()) + changedPages);
+        }
+
+        System.out.println(monthTemps);
+
+        books.remove(id, medBook);
+
+        medBook.setNameOfBook(_book.getNameOfBook());
+        medBook.setAuthorOfBook(_book.getAuthorOfBook());
+        medBook.setAllPages(_book.getAllPages());
+        medBook.setCompletePages(_book.getCompletePages());
+        medBook.setFinishDate(_book.getFinishDate());
+
+        books.put(id, medBook);
+
+        updateFileBooks();
+    }
+
+    private void updateFileBooks() {
+        bfwBooks.write();
+    }
+
+    public Book searchBook(int _id) {
+        if(this.books.containsKey(_id))
+            return this.books.get(_id);
+
+        return new Book();
+    }
+
+}

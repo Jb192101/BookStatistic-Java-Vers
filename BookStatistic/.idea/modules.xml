@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BookStatistic.iml" filepath="$PROJECT_DIR$/BookStatistic.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BSMaven.iml" filepath="$PROJECT_DIR$/BSMaven.iml" />
     </modules>
   </component>
 </project>
