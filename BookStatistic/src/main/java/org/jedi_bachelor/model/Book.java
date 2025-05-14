@@ -4,14 +4,14 @@ package org.jedi_bachelor.model;
 Класс книги Book
  */
 
-import java.io.Serial;
+//import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
 public class Book implements Serializable, Comparable<Book>{
-    @Serial
-    private static final long serialVersionUID = 823478973782L;
+    //@Serial
+    //private static final long serialVersionUID = 823478973782L;
 
     private int id = -1; //<- id становится ключом в HashMap
     private String nameOfBook;
