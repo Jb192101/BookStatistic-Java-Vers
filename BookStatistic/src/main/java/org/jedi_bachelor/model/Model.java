@@ -4,6 +4,7 @@ package org.jedi_bachelor.model;
 В данном классе Date - это собственный класс
  */
 
+import lombok.Setter;
 import org.jedi_bachelor.utils.BinFileReader;
 import org.jedi_bachelor.utils.BinFileWriter;
 
@@ -12,9 +13,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Model {
-    private final String PATH_TO_FILE_BOOKS = "main/resources/data_files/books.bs";
-    private final String PATH_TO_FILE_MONTH = "main/resources/data_files/monthStatistic.bs";
-    private final String PATH_TO_FILE_TEMPS = "main/resources/data_files/tempsStatistic.bs";
+    private final String PATH_TO_FILE_BOOKS = "user-data/books.bs";
+    private final String PATH_TO_FILE_MONTH = "user-data/monthStatistic.bs";
+    private final String PATH_TO_FILE_TEMPS = "user-data/tempsStatistic.bs";
 
     // Утилиты для записи
     // Для добавления/изменения книг
@@ -25,20 +26,20 @@ public class Model {
     private final BinFileReader<HashMap<Date, Integer>> bfrStat;
     private final BinFileWriter<HashMap<Date, Integer>> bfwStat;
 
+    @Setter
     private HashMap<Integer, Book> books;
     private HashMap<Date, Integer> monthTemps;
     private HashMap<Date, Integer> monthStat;
 
     public Model() {
-        bfrBooks = new BinFileReader<>(new File(PATH_TO_FILE_BOOKS));
-        bfwBooks = new BinFileWriter<>(PATH_TO_FILE_BOOKS, books);
-
-        bfrStat = new BinFileReader<>(new File(PATH_TO_FILE_TEMPS)); // первоначально так
-        bfwStat = new BinFileWriter<>(PATH_TO_FILE_TEMPS, monthTemps);
-
-        books = new HashMap<>();
         monthTemps = new HashMap<>();
         monthStat = new HashMap<>();
+
+        bfrBooks = new BinFileReader<>(PATH_TO_FILE_BOOKS);
+        bfwBooks = new BinFileWriter<>(PATH_TO_FILE_BOOKS, books);
+
+        bfrStat = new BinFileReader<>(PATH_TO_FILE_TEMPS);
+        bfwStat = new BinFileWriter<>(PATH_TO_FILE_TEMPS, monthTemps);
 
         readFromFile();
     }
@@ -51,18 +52,16 @@ public class Model {
         return this.books;
     }
 
-    public void setBooks(HashMap<Integer, Book> _listBooks) {
-        books = _listBooks;
-    }
-
     private void readFromFile() {
         bfrBooks.read();
         books = bfrBooks.getObject();
+        if(books == null)
+            books = new HashMap<>();
     }
 
     public void updateDataAddBook(Book _newBook) {
-        _newBook.setId(this.books.size() + 1);
-        this.books.put(this.books.size() + 1, _newBook);
+        _newBook.setId(books.size() + 1);
+        books.put(books.size() + 1, _newBook);
 
         updateFileBooks();
     }
@@ -104,6 +103,7 @@ public class Model {
     }
 
     private void updateFileBooks() {
+        bfwBooks.setObject(books);
         bfwBooks.write();
     }
 

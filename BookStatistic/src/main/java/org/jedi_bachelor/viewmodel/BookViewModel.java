@@ -14,13 +14,10 @@ public class BookViewModel {
     public BookViewModel() {
         this.model = new Model();
     }
+
     public BookViewModel(Model _model) {
         this.model = _model;
     }
-
-    //public Model getModel() {
-    //    return model;
-    //}
 
     public void openInputDataWindow() {
         InputDataWindow inputWindow = new InputDataWindow();
@@ -41,7 +38,7 @@ public class BookViewModel {
     }
 
     public void openInputIndexWindow() {
-        InputIndexWindow inputIndexWindow = new InputIndexWindow(new BookViewModel(this.model));
+        InputIndexWindow inputIndexWindow = new InputIndexWindow(this);
         inputIndexWindow.showAndWait();
     }
 

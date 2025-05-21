@@ -1,44 +1,58 @@
 package org.jedi_bachelor.utils;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class BinFileWriter<T> {
-    private File file;
+    private String filePath;
+    @Getter
+    @Setter
     private T object;
 
     public BinFileWriter(String _filePath, T _object) {
-        setFile(_filePath);
+        this.filePath = _filePath;
         this.object = _object;
     }
 
     public void write() {
         try {
-            FileOutputStream fos = new FileOutputStream(this.file);
+            clearFile();
+
+            FileOutputStream fos = new FileOutputStream(this.filePath);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
+            System.out.println("Записан: "+ object);
             oos.writeObject(this.object);
+            oos.flush();
 
             oos.close();
+            fos.close();
         } catch(IOException ex) {
             ex.printStackTrace();
         }
     }
 
-    public File getFile() { return this.file; }
-    public T getObject() { return this.object; }
-
-    public void setFile(String _file) {
-        this.file = new File(_file);
+    private void clearFile() throws IOException {
+        Path path = Paths.get(filePath);
+        if (Files.exists(path)) {
+            Files.delete(path);
+        }
+        Files.createFile(path);
     }
 
-    public void setFile(File _file) {
-        this.file = _file;
+    public File getFile() {
+        return new File(this.filePath);
     }
 
-    public void setObject(T _object) {
-        this.object = _object;
+    public void setFile(String _filePath) {
+        this.filePath = _filePath;
     }
 }

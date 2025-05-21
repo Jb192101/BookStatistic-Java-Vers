@@ -5,39 +5,53 @@ package org.jedi_bachelor.model;
  */
 
 //import java.io.Serial;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
+@NoArgsConstructor
 public class Book implements Serializable, Comparable<Book>{
     //@Serial
     //private static final long serialVersionUID = 823478973782L;
 
+    @Setter
+    @Getter
     private int id = -1; //<- id становится ключом в HashMap
+    @Setter
+    @Getter
     private String nameOfBook;
+    @Setter
+    @Getter
     private String authorOfBook;
+    @Getter
     private int completePages;
+    @Setter
+    @Getter
     private int allPages;
+    @Getter
     private LocalDate startDate;
+    @Getter
+    @Setter
     private LocalDate finishDate = null;
+    @Getter
     private float procentOfReaded;
 
-    public Book(String _nameOfBook, String _authorOfBook, int _completePages, int _allPages, LocalDate _ld) {
+    public Book(String _nameOfBook, String _authorOfBook, int _completePages, int _allPages) {
         if(_completePages <= _allPages && _completePages >= 0 && _allPages > 0) {
             this.nameOfBook = _nameOfBook;
             this.authorOfBook = _authorOfBook;
             this.completePages = _completePages;
             this.allPages = _allPages;
-            this.startDate = _ld;
+            this.startDate = LocalDate.now();
             changeProcent();
+
+            if(_completePages == _allPages)
+                this.finishDate = this.startDate;
         }
-    }
-
-    public void setId(int _id) { id = _id;}
-
-    // Пустой конструктор
-    public Book() {
-
     }
 
     @Override
@@ -53,26 +67,6 @@ public class Book implements Serializable, Comparable<Book>{
         return Objects.hash(nameOfBook, authorOfBook, completePages, allPages, startDate, finishDate);
     }
 
-    public String getNameOfBook() {
-        return nameOfBook;
-    }
-
-    public void setNameOfBook(String _nameOfBook) {
-        this.nameOfBook = _nameOfBook;
-    }
-
-    public String getAuthorOfBook() {
-        return authorOfBook;
-    }
-
-    public void setAuthorOfBook(String _authorOfBook) {
-        this.authorOfBook = _authorOfBook;
-    }
-
-    public int getCompletePages() {
-        return completePages;
-    }
-
     public float getProcentOfReaded() {
         return procentOfReaded*100.0f;
     }
@@ -83,22 +77,6 @@ public class Book implements Serializable, Comparable<Book>{
     }
 
     public void changeProcent() { this.procentOfReaded = (float) this.completePages / this.allPages; }
-
-    public int getAllPages() {
-        return allPages;
-    }
-
-    public void setAllPages(int _allPages) {
-        this.allPages = _allPages;
-    }
-
-    //public LocalDate getStartDate() { return startDate; }
-
-    //public void setStartDate(LocalDate startDate) { this.startDate = startDate; }
-
-    public LocalDate getFinishDate() { return finishDate; }
-
-    public void setFinishDate(LocalDate finishDate) { this.finishDate = finishDate; }
 
     @Override
     public String toString() {

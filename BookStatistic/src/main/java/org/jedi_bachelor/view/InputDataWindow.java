@@ -104,8 +104,7 @@ public class InputDataWindow {
                 titleField.getText().trim(),
                 authorField.getText().trim(),
                 pagesRead,
-                totalPages,
-                LocalDate.now()
+                totalPages
         );
 
         stage.close();

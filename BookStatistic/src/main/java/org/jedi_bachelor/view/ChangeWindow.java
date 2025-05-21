@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 import org.jedi_bachelor.model.Book;
 import org.jedi_bachelor.viewmodel.BookViewModel;
 

@@ -1,3 +1,5 @@
+package org.jedi_bachelor;
+
 /*
 Класс приложения
  */

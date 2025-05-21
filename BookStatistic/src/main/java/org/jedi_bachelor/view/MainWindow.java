@@ -16,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import org.jedi_bachelor.model.Book;
+import org.jedi_bachelor.model.Date;
 import org.jedi_bachelor.viewmodel.BookViewModel;
 
 import java.time.LocalDate;
@@ -57,10 +58,10 @@ public class MainWindow extends Stage {
         TableColumn<Book, Integer> totalPagesColumn = new TableColumn<>("Всего страниц");
         totalPagesColumn.setCellValueFactory(new PropertyValueFactory<>("allPages"));
 
-        TableColumn<Book, LocalDate> startDateColumn = new TableColumn<>("Дата начала чтения");
+        TableColumn<Book, Date> startDateColumn = new TableColumn<>("Дата начала чтения");
         startDateColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
 
-        TableColumn<Book, LocalDate> endDateColumn = new TableColumn<>("Дата окончания чтения");
+        TableColumn<Book, Date> endDateColumn = new TableColumn<>("Дата окончания чтения");
         endDateColumn.setCellValueFactory(new PropertyValueFactory<>("finishDate"));
 
         TableColumn<Book, Float> procColumn = new TableColumn<>("% прочитан.");
@@ -125,6 +126,7 @@ public class MainWindow extends Stage {
 
         try {
             Map<Integer, Book> bookList = bvm.readFromBookModel();
+            System.out.println(bookList);
             if(bookList.isEmpty()) {
                 return;
             }
