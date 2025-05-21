@@ -11,21 +11,21 @@ import javafx.stage.StageStyle;
 import java.io.File;
 
 public class SplashScreen {
-    private final String PATH_TO_IMAGE = "src/resources/splash.png";
-
     private Stage splashStage;
     private ProgressBar progressBar;
 
     public void show() {
-        ImageView splashImage = new ImageView(new Image(new File(PATH_TO_IMAGE).toURI().toString()));
-        splashImage.setFitWidth(400);
-        splashImage.setFitHeight(300);
+        String PATH_TO_IMAGE = "/images/splash.png";
+        Image image = new Image(getClass().getResourceAsStream(PATH_TO_IMAGE));
+        ImageView splashImage = new ImageView(image);
+        splashImage.setFitWidth(600);
+        splashImage.setFitHeight(400);
         splashImage.setPreserveRatio(true);
 
         progressBar = new ProgressBar();
         progressBar.setPrefWidth(400);
 
-        VBox root = new VBox(progressBar);
+        VBox root = new VBox(splashImage, progressBar);
         root.setStyle("-fx-background-color: white; -fx-padding: 10; -fx-alignment: center;");
 
         Scene scene = new Scene(root);
