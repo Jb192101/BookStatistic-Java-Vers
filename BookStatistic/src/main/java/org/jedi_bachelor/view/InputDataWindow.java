@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 import java.time.LocalDate;
 
+import javafx.stage.StageStyle;
 import org.jedi_bachelor.model.Book;
 
 public class InputDataWindow {
@@ -25,6 +26,7 @@ public class InputDataWindow {
         stage = new Stage();
         stage.initModality(Modality.WINDOW_MODAL);
         stage.setTitle("Добавить книгу");
+        stage.initStyle(StageStyle.UTILITY);
 
         setupSpinners();
         setupUI();

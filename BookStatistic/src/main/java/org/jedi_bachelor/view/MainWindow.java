@@ -14,12 +14,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import org.jedi_bachelor.model.Book;
 import org.jedi_bachelor.model.Date;
 import org.jedi_bachelor.viewmodel.BookViewModel;
 
-import java.time.LocalDate;
 import java.util.Map;
 
 public class MainWindow extends Stage {
@@ -115,7 +115,14 @@ public class MainWindow extends Stage {
 
         Stage stage = new Stage();
         Scene scene = new Scene(root, 850, 600);
+
+        scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
+        stage.initStyle(StageStyle.UTILITY);
+        root.getStyleClass().add("root");
+
         stage.setTitle("BookStatistic v1.0");
+        stage.initStyle(StageStyle.UTILITY);
+
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();

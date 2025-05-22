@@ -7,6 +7,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javafx.stage.StageStyle;
 import org.jedi_bachelor.model.Book;
 import org.jedi_bachelor.viewmodel.BookViewModel;
 
@@ -31,6 +32,7 @@ public class ChangeWindow {
         stage = new Stage();
         stage.initModality(Modality.WINDOW_MODAL);
         stage.setTitle("Редактировать книгу");
+        stage.initStyle(StageStyle.UTILITY);
 
         setupSpinners();
         setupUI();

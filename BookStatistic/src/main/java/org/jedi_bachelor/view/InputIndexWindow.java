@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.jedi_bachelor.viewmodel.BookViewModel;
 
 public class InputIndexWindow extends Stage {
@@ -35,6 +36,9 @@ public class InputIndexWindow extends Stage {
         root.getChildren().addAll(label, textField, closeButton);
 
         Scene scene = new Scene(root, 300, 100);
+
+        primaryStage.initStyle(StageStyle.UTILITY);
+
         primaryStage.setTitle("Ввод индекса");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
