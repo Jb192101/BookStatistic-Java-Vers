@@ -39,6 +39,7 @@ public class Book implements Serializable, Comparable<Book>{
     private LocalDate finishDate = null;
     @Getter
     private float procentOfReaded;
+    //private Genre genre;
 
     public Book(String _nameOfBook, String _authorOfBook, int _completePages, int _allPages) {
         if(_completePages <= _allPages && _completePages >= 0 && _allPages > 0) {

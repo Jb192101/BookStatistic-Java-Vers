@@ -8,8 +8,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.io.File;
-
 public class SplashScreen {
     private Stage splashStage;
     private ProgressBar progressBar;
