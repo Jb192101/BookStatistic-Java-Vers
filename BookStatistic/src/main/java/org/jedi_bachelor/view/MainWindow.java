@@ -23,7 +23,7 @@ import org.jedi_bachelor.viewmodel.BookViewModel;
 import java.util.Map;
 
 public class MainWindow extends Stage {
-    private BookViewModel bvm;
+    private final BookViewModel bvm;
 
     public MainWindow() {
         BorderPane root = new BorderPane();
@@ -35,7 +35,7 @@ public class MainWindow extends Stage {
 
         Button aboutButton = new Button("О проекте");
         aboutButton.setOnAction(e ->
-                System.out.println("Кнопка 'О проекте' нажата")
+                bvm.openAboutWindow()
         );
 
         topPanel.getChildren().add(aboutButton);
@@ -78,7 +78,7 @@ public class MainWindow extends Stage {
 
         // Заполнение таблицы
         ObservableList<Book> data = FXCollections.observableArrayList();
-        fillingTable(data);
+        bvm.fillingTable(data);
         table.setItems(data);
 
         root.setCenter(table);
@@ -94,11 +94,11 @@ public class MainWindow extends Stage {
 
         addButton.setOnAction(e -> {
             bvm.openInputDataWindow();
-            fillingTable(data);});
+            bvm.fillingTable(data);});
 
         editButton.setOnAction(e -> {
             bvm.openInputIndexWindow();
-            fillingTable(data);
+            bvm.fillingTable(data);
         });
 
         buttonPanel.getChildren().addAll(addButton, editButton, statMonthButton, statTempsButton);
@@ -116,7 +116,7 @@ public class MainWindow extends Stage {
         Stage stage = new Stage();
         Scene scene = new Scene(root, 850, 600);
 
-        scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
+        //scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
         stage.initStyle(StageStyle.UTILITY);
         root.getStyleClass().add("root");
 
@@ -126,24 +126,6 @@ public class MainWindow extends Stage {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
-    }
-
-    private void fillingTable(ObservableList<Book> _data) {
-        _data.clear();
-
-        try {
-            Map<Integer, Book> bookList = bvm.readFromBookModel();
-            System.out.println(bookList);
-            if(bookList.isEmpty()) {
-                return;
-            }
-
-            for (int i : bookList.keySet()) {
-                _data.add(bookList.get(i));
-            }
-        } catch(NullPointerException ex) {
-            ex.printStackTrace();
-        }
     }
 
 }
