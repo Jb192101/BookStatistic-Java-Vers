@@ -22,4 +22,13 @@ abstract public class View extends Stage {
 
         windowCountMap.put(currentClass, currentCount + 1);
     }
+
+    public void close() {
+        Class<?> currentClass = this.getClass();
+        int currentCount = windowCountMap.getOrDefault(currentClass, 0);
+
+        if (currentCount > 0) {
+            windowCountMap.put(currentClass, currentCount - 1);
+        }
+    }
 }
