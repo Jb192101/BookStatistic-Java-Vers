@@ -8,11 +8,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class SplashScreen {
-    private Stage splashStage;
+public class SplashScreen extends Stage {
     private ProgressBar progressBar;
 
-    public void show() {
+    public SplashScreen() {
+        setupUI();
+    }
+
+    private void setupUI() {
         String PATH_TO_IMAGE = "/images/splash.png";
         Image image = new Image(getClass().getResourceAsStream(PATH_TO_IMAGE));
         ImageView splashImage = new ImageView(image);
@@ -28,17 +31,11 @@ public class SplashScreen {
 
         Scene scene = new Scene(root);
 
-        splashStage = new Stage();
-        splashStage.initStyle(StageStyle.UNDECORATED);
-        splashStage.setScene(scene);
-        splashStage.show();
+        initStyle(StageStyle.UNDECORATED);
+        setScene(scene);
     }
 
     public void updateProgress(double progress) {
         progressBar.setProgress(progress);
-    }
-
-    public void close() {
-        splashStage.close();
     }
 }

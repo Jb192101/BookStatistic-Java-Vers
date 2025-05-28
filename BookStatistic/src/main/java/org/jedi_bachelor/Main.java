@@ -5,40 +5,19 @@ package org.jedi_bachelor;
  */
 
 import javafx.application.Application;
-import javafx.concurrent.Task;
 import javafx.stage.Stage;
-import javafx.application.Platform;
-
-import org.jedi_bachelor.view.MainWindow;
-import org.jedi_bachelor.view.SplashScreen;
+import org.jedi_bachelor.viewmodel.MainViewModel;
 
 public class Main extends Application {
+    MainViewModel mvm = new MainViewModel();
+
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
-    public void start(Stage stage) {
-        SplashScreen splashScreen = new SplashScreen();
-        splashScreen.show();
-
-        Task<Void> task = new Task<>() {
-            @Override
-            protected Void call() throws Exception {
-                for (int i = 0; i <= 100; i++) {
-                    Thread.sleep(30);
-                    final int progress = i;
-                    Platform.runLater(() -> splashScreen.updateProgress(progress / 100.0));
-                }
-                return null;
-            }
-        };
-
-        task.setOnSucceeded(e -> {
-            splashScreen.close();
-            MainWindow mainWindow = new MainWindow();
-        });
-
-        new Thread(task).start();
+    public void start(Stage stage) throws InterruptedException {
+        // Новая версия
+        mvm.startApplication();
     }
 }

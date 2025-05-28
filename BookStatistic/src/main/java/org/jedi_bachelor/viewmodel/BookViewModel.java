@@ -11,22 +11,21 @@ import java.util.Map;
 
 public class BookViewModel {
     private Model model;
-    private LocalViewModel lvm;
 
     public BookViewModel() {
         this.model = new Model();
-        this.lvm = new LocalViewModel();
+        //this.lvm = new LocalViewModel();
     }
 
     public BookViewModel(Model _model) {
         this.model = _model;
-        this.lvm = new LocalViewModel();
+        //this.lvm = new LocalViewModel();
     }
 
     // Методы открытия окон
 
     public void openInputDataWindow() {
-        InputDataWindow inputWindow = new InputDataWindow(lvm);
+        InputDataWindow inputWindow = new InputDataWindow();
         Book newBook = inputWindow.showAndWait();
         updateBookModel(newBook);
         System.out.println(newBook);

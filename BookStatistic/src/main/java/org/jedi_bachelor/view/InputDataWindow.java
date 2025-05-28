@@ -7,14 +7,11 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.time.LocalDate;
-
 import javafx.stage.StageStyle;
 import org.jedi_bachelor.model.Book;
-import org.jedi_bachelor.viewmodel.LocalViewModel;
 
 public class InputDataWindow {
-    private LocalViewModel lvm;
+    //private LocalViewModel lvm;
 
     protected Stage stage;
     private Book resultBook;
@@ -34,11 +31,6 @@ public class InputDataWindow {
         setupSpinners();
         setupUI();
         setupValidation();
-    }
-
-    public InputDataWindow(LocalViewModel _lvm) {
-        new InputDataWindow();
-        this.lvm = _lvm;
     }
 
     protected void setupSpinners() {

@@ -1,14 +1,17 @@
-package org.jedi_bachelor.view;
+package org.jedi_bachelor.viewmodel;
 
 /*
 Класс для установки локализации на приложение
  */
+
+import lombok.Getter;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class LocaleManager {
     private static ResourceBundle bundle;
+    @Getter
     private static Locale currentLocale;
 
     public static void setLocale(Locale locale) {
@@ -21,10 +24,6 @@ public class LocaleManager {
             setLocale(Locale.getDefault());
         }
         return bundle;
-    }
-
-    public static Locale getCurrentLocale() {
-        return currentLocale;
     }
 
     public static String getString(String key) {

@@ -18,25 +18,26 @@ import javafx.stage.StageStyle;
 
 import org.jedi_bachelor.model.Book;
 import org.jedi_bachelor.model.Date;
-import org.jedi_bachelor.viewmodel.BookViewModel;
-
-import java.util.Map;
 
 public class MainWindow extends Stage {
-    private final BookViewModel bvm;
+    //private final BookViewModel bvm;
 
     public MainWindow() {
+        setupUI();
+    }
+
+    private void setupUI() {
         BorderPane root = new BorderPane();
-        this.bvm = new BookViewModel();
+        //this.bvm = new BookViewModel();
 
         HBox topPanel = new HBox();
         topPanel.setPadding(new Insets(10));
         topPanel.setAlignment(Pos.TOP_RIGHT);
 
         Button aboutButton = new Button("О проекте");
-        aboutButton.setOnAction(e ->
-                bvm.openAboutWindow()
-        );
+        //aboutButton.setOnAction(e ->
+        //        bvm.openAboutWindow()
+        //);
 
         topPanel.getChildren().add(aboutButton);
         root.setTop(topPanel);
@@ -78,7 +79,7 @@ public class MainWindow extends Stage {
 
         // Заполнение таблицы
         ObservableList<Book> data = FXCollections.observableArrayList();
-        bvm.fillingTable(data);
+        //bvm.fillingTable(data);
         table.setItems(data);
 
         root.setCenter(table);
@@ -92,14 +93,14 @@ public class MainWindow extends Stage {
         Button statMonthButton = new Button("Стата");
         Button statTempsButton = new Button("Темпы");
 
-        addButton.setOnAction(e -> {
-            bvm.openInputDataWindow();
-            bvm.fillingTable(data);});
+        //addButton.setOnAction(e -> {
+        //    bvm.openInputDataWindow();
+        //    bvm.fillingTable(data);});
 
-        editButton.setOnAction(e -> {
-            bvm.openInputIndexWindow();
-            bvm.fillingTable(data);
-        });
+        //editButton.setOnAction(e -> {
+        //    bvm.openInputIndexWindow();
+        //    bvm.fillingTable(data);
+        //});
 
         buttonPanel.getChildren().addAll(addButton, editButton, statMonthButton, statTempsButton);
 

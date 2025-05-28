@@ -1,7 +1,7 @@
 package org.jedi_bachelor.viewmodel;
 
-import org.jedi_bachelor.model.Book;
+import org.jedi_bachelor.view.View;
 
-public class LocalViewModel {
-    private Book usebleBook;
+abstract public class LocalViewModel implements InteractViewModelInterface, InteractWindowsInterface {
+    private View Window;
 }

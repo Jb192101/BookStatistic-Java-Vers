@@ -8,11 +8,11 @@ import lombok.Setter;
 import org.jedi_bachelor.utils.BinFileReader;
 import org.jedi_bachelor.utils.BinFileWriter;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Model {
+    // Потом замени подгрузкой новых файлов
     private final String PATH_TO_FILE_BOOKS = "user-data/books.bs";
     private final String PATH_TO_FILE_MONTH = "user-data/monthStatistic.bs";
     private final String PATH_TO_FILE_TEMPS = "user-data/tempsStatistic.bs";
