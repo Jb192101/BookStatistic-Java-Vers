@@ -20,10 +20,14 @@ public class SplashViewModel implements InteractWindowsInterface{
             @Override
             protected Void call() throws Exception {
                 for (int i = 0; i <= 100; i++) {
-                    Thread.sleep(30);
+                    if(i < 70)
+                        Thread.sleep(30);
+                    else
+                        Thread.sleep(60);
                     final int progress = i;
                     Platform.runLater(() -> splashScreen.updateProgress(progress / 100.0));
                 }
+                Thread.sleep(1000);
                 return null;
             }
         };

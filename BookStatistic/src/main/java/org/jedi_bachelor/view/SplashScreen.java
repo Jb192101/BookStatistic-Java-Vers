@@ -4,7 +4,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -24,14 +24,16 @@ public class SplashScreen extends Stage {
         splashImage.setPreserveRatio(true);
 
         progressBar = new ProgressBar();
-        progressBar.setPrefWidth(400);
+        progressBar.setPrefWidth(550);
+        progressBar.setTranslateY(120);
 
-        VBox root = new VBox(splashImage, progressBar);
-        root.setStyle("-fx-background-color: white; -fx-padding: 10; -fx-alignment: center;");
+        StackPane root = new StackPane(splashImage, progressBar);
+        root.setStyle("-fx-background-color: transparent; -fx-padding: 10; -fx-alignment: center;");
 
         Scene scene = new Scene(root);
+        scene.setFill(null);
 
-        initStyle(StageStyle.UNDECORATED);
+        initStyle(StageStyle.TRANSPARENT);
         setScene(scene);
     }
 
