@@ -13,24 +13,24 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import org.jedi_bachelor.model.Book;
 import org.jedi_bachelor.model.Date;
+import org.jedi_bachelor.viewmodel.MainViewModel;
 
 public class MainWindow extends View {
-    //private final BookViewModel bvm;
+    private final MainViewModel mvm;
     private BorderPane root;
     private ObservableList<Book> data;
 
-    public MainWindow() {
+    public MainWindow(MainViewModel _mvm) {
+        this.mvm = _mvm;
         setupUI();
     }
 
     private void setupUI() {
         root = new BorderPane();
-        //this.bvm = new BookViewModel();
 
         createTopPanel();
         createTableView();
@@ -53,9 +53,9 @@ public class MainWindow extends View {
         topPanel.setAlignment(Pos.TOP_RIGHT);
 
         Button aboutButton = new Button("О проекте");
-        //aboutButton.setOnAction(e ->
-        //        bvm.openAboutWindow()
-        //);
+        aboutButton.setOnAction(e ->
+                mvm.openAboutWindow()
+        );
 
         topPanel.getChildren().add(aboutButton);
         root.setTop(topPanel);
@@ -99,7 +99,7 @@ public class MainWindow extends View {
 
         // Заполнение таблицы
         data = FXCollections.observableArrayList();
-        //bvm.fillingTable(data);
+        mvm.fillingTable(data);
         table.setItems(data);
 
         root.setCenter(table);
@@ -115,14 +115,14 @@ public class MainWindow extends View {
         Button statMonthButton = new Button("Стата");
         Button statTempsButton = new Button("Темпы");
 
-        //addButton.setOnAction(e -> {
-        //    bvm.openInputDataWindow();
-        //    bvm.fillingTable(data);});
+        addButton.setOnAction(e -> {
+            mvm.openInputDataWindow();
+            mvm.fillingTable(data);});
 
-        //editButton.setOnAction(e -> {
-        //    bvm.openInputIndexWindow();
-        //    bvm.fillingTable(data);
-        //});
+        editButton.setOnAction(e -> {
+            mvm.openInputIndexWindow();
+            mvm.fillingTable(data);
+        });
 
         buttonPanel.getChildren().addAll(addButton, editButton, statMonthButton, statTempsButton);
 
