@@ -19,17 +19,35 @@ import javafx.stage.StageStyle;
 import org.jedi_bachelor.model.Book;
 import org.jedi_bachelor.model.Date;
 
-public class MainWindow extends Stage {
+public class MainWindow extends View {
     //private final BookViewModel bvm;
+    private BorderPane root;
+    private ObservableList<Book> data;
 
     public MainWindow() {
         setupUI();
     }
 
     private void setupUI() {
-        BorderPane root = new BorderPane();
+        root = new BorderPane();
         //this.bvm = new BookViewModel();
 
+        createTopPanel();
+        createTableView();
+        createButtonPanel();
+        createBottomPanel();
+
+        Scene scene = new Scene(root, 850, 600);
+        //scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
+        root.getStyleClass().add("root");
+
+        setTitle("BookStatistic v1.0");
+        initStyle(StageStyle.UTILITY);
+        setScene(scene);
+        setResizable(false);
+    }
+
+    private void createTopPanel() {
         HBox topPanel = new HBox();
         topPanel.setPadding(new Insets(10));
         topPanel.setAlignment(Pos.TOP_RIGHT);
@@ -41,7 +59,9 @@ public class MainWindow extends Stage {
 
         topPanel.getChildren().add(aboutButton);
         root.setTop(topPanel);
+    }
 
+    private void createTableView() {
         TableView<Book> table = new TableView<>();
 
         TableColumn<Book, Integer> idColumn = new TableColumn<>("ID");
@@ -78,12 +98,14 @@ public class MainWindow extends Stage {
         table.getColumns().add(procColumn);
 
         // Заполнение таблицы
-        ObservableList<Book> data = FXCollections.observableArrayList();
+        data = FXCollections.observableArrayList();
         //bvm.fillingTable(data);
         table.setItems(data);
 
         root.setCenter(table);
+    }
 
+    private void createButtonPanel() {
         HBox buttonPanel = new HBox(10);
         buttonPanel.setPadding(new Insets(10));
         buttonPanel.setAlignment(Pos.CENTER);
@@ -104,6 +126,11 @@ public class MainWindow extends Stage {
 
         buttonPanel.getChildren().addAll(addButton, editButton, statMonthButton, statTempsButton);
 
+        VBox bottomContainer = new VBox(buttonPanel);
+        root.setBottom(bottomContainer);
+    }
+
+    private void createBottomPanel() {
         HBox bottomPanel = new HBox();
         bottomPanel.setPadding(new Insets(10));
         bottomPanel.setAlignment(Pos.BOTTOM_RIGHT);
@@ -111,22 +138,6 @@ public class MainWindow extends Stage {
         Label booksCountLabel = new Label("Прочитано книг: " + data.size());
         bottomPanel.getChildren().add(booksCountLabel);
 
-        VBox bottomContainer = new VBox(buttonPanel);
-        root.setBottom(bottomContainer);
-
-        Stage stage = new Stage();
-        Scene scene = new Scene(root, 850, 600);
-
-        //scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
-        stage.initStyle(StageStyle.UTILITY);
-        root.getStyleClass().add("root");
-
-        stage.setTitle("BookStatistic v1.0");
-        stage.initStyle(StageStyle.UTILITY);
-
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
+        ((VBox) root.getBottom()).getChildren().add(bottomPanel);
     }
-
 }

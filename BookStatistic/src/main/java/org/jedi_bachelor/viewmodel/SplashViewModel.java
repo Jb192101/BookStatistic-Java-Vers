@@ -5,8 +5,8 @@ import javafx.concurrent.Task;
 import org.jedi_bachelor.view.SplashScreen;
 
 public class SplashViewModel implements InteractWindowsInterface{
-    private SplashScreen splashScreen;
-    private MainViewModel mvm;
+    private final SplashScreen splashScreen;
+    private final MainViewModel mvm;
 
     public SplashViewModel(MainViewModel _mvm) {
         this.mvm = _mvm;
@@ -33,7 +33,7 @@ public class SplashViewModel implements InteractWindowsInterface{
         };
 
         task.setOnSucceeded(e -> {
-            splashScreen.close();
+            this.closeWindow();
             mvm.openWindow();
         });
 
