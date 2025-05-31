@@ -23,6 +23,10 @@ public class Model {
     private final BinFileWriter<HashMap<Integer, Book>> bfwBooks;
 
     // Для темпов чтения
+    private final BinFileReader<HashMap<Date, Integer>> bfrStatTemps;
+    private final BinFileWriter<HashMap<Date, Integer>> bfwStatTemps;
+
+    // Для статистики чтения
     private final BinFileReader<HashMap<Date, Integer>> bfrStat;
     private final BinFileWriter<HashMap<Date, Integer>> bfwStat;
 
@@ -38,14 +42,13 @@ public class Model {
         bfrBooks = new BinFileReader<>(PATH_TO_FILE_BOOKS);
         bfwBooks = new BinFileWriter<>(PATH_TO_FILE_BOOKS, books);
 
-        bfrStat = new BinFileReader<>(PATH_TO_FILE_TEMPS);
-        bfwStat = new BinFileWriter<>(PATH_TO_FILE_TEMPS, monthTemps);
+        bfrStatTemps = new BinFileReader<>(PATH_TO_FILE_TEMPS);
+        bfwStatTemps = new BinFileWriter<>(PATH_TO_FILE_TEMPS, monthTemps);
+
+        bfrStat = new BinFileReader<>(PATH_TO_FILE_MONTH);
+        bfwStat = new BinFileWriter<>(PATH_TO_FILE_MONTH, monthStat);
 
         readFromFile();
-    }
-
-    public void addBook(int _id, Book _newBook) {
-        books.put(_id, _newBook);
     }
 
     public Map<Integer, Book> getBooks() {
@@ -57,6 +60,16 @@ public class Model {
         books = bfrBooks.getObject();
         if(books == null)
             books = new HashMap<>();
+
+        bfrStat.read();
+        monthStat = bfwStat.getObject();
+        if(monthStat == null)
+            monthStat = new HashMap<>();
+
+        bfrStatTemps.read();
+        monthTemps = bfwStatTemps.getObject();
+        if(monthTemps == null)
+            monthTemps = new HashMap<>();
     }
 
     public void updateDataAddBook(Book _newBook) {
@@ -81,11 +94,8 @@ public class Model {
         if(changedPages < 0)
             changedPages *= -1;
 
-        if(!monthTemps.containsKey(Date.now())) {
-            monthTemps.put(Date.now(), changedPages);
-        } else {
-            monthTemps.put(Date.now(), monthTemps.get(Date.now()) + changedPages);
-        }
+        addPagesAtMonthStat(changedPages);
+        addPagesAtMonthSpeed(changedPages);
 
         System.out.println(monthTemps);
 
@@ -114,4 +124,19 @@ public class Model {
         return new Book();
     }
 
+    private void addPagesAtMonthStat(int _changed) {
+        if(!monthStat.containsKey(Date.now())) {
+            monthStat.put(Date.now(), _changed);
+        } else {
+            monthStat.put(Date.now(), monthStat.get(Date.now()) + _changed);
+        }
+    }
+
+    private void addPagesAtMonthSpeed(int _changed) {
+        if(!monthTemps.containsKey(Date.now())) {
+            monthTemps.put(Date.now(), _changed);
+        } else {
+            monthTemps.put(Date.now(), monthTemps.get(Date.now()) + _changed);
+        }
+    }
 }

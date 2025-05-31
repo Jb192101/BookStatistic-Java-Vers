@@ -5,10 +5,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import javafx.stage.StageStyle;
-import org.jedi_bachelor.model.Book;
 import org.jedi_bachelor.viewmodel.ChangeViewModel;
 
 public class ChangeWindow extends View {
@@ -81,7 +79,7 @@ public class ChangeWindow extends View {
         //searchingBook.setAllPages(totalPagesSpinner.getValue());
         //searchingBook.changeProcent();
 
-        bvm.changeBook(searchingBook);
+        //bvm.changeBook(searchingBook);
 
         close();
     }
