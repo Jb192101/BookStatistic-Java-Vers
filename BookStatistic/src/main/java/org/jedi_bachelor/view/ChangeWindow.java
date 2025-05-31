@@ -9,16 +9,11 @@ import javafx.stage.Stage;
 
 import javafx.stage.StageStyle;
 import org.jedi_bachelor.model.Book;
-import org.jedi_bachelor.viewmodel.BookViewModel;
+import org.jedi_bachelor.viewmodel.ChangeViewModel;
 
-import java.time.LocalDate;
+public class ChangeWindow extends View {
+    private ChangeViewModel cvm;
 
-public class ChangeWindow {
-    private BookViewModel bvm;
-    private Book searchingBook;
-
-    protected Stage stage;
-    private Book resultBook;
     protected final TextField titleField = new TextField();
     protected final TextField authorField = new TextField();
     protected Spinner<Integer> pagesReadSpinner;
@@ -26,30 +21,26 @@ public class ChangeWindow {
     protected final Label errorLabel = new Label();
     protected Button addButton;
 
-    public ChangeWindow(int _index, BookViewModel _bvm) {
-        this.bvm = _bvm;
-        searchingBook = bvm.searchBookByID(_index);
-        stage = new Stage();
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.setTitle("Редактировать книгу");
-        stage.initStyle(StageStyle.UTILITY);
+    public ChangeWindow(ChangeViewModel _cvm) {
+        this.cvm = _cvm;
+        initModality(Modality.WINDOW_MODAL);
+        setTitle("Редактировать книгу");
+        initStyle(StageStyle.UTILITY);
 
-        setupSpinners();
         setupUI();
         setupValidation();
-
-        fillingFields();
     }
 
     private void fillingFields() {
-        this.titleField.setText(searchingBook.getNameOfBook());
-        this.authorField.setText(searchingBook.getAuthorOfBook());
+        //this.titleField.setText(searchingBook.getNameOfBook());
+        //this.authorField.setText(searchingBook.getAuthorOfBook());
     }
 
     protected void setupSpinners() {
         this.pagesReadSpinner = new Spinner<>();
         this.totalPagesSpinner = new Spinner<>();
 
+        /*
         SpinnerValueFactory.IntegerSpinnerValueFactory factory1 =
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(1, Integer.MAX_VALUE, searchingBook.getCompletePages());
 
@@ -59,6 +50,7 @@ public class ChangeWindow {
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(1, Integer.MAX_VALUE, searchingBook.getAllPages());
 
         totalPagesSpinner.setValueFactory(factory2);
+         */
     }
 
     protected void validateAndAdd() {
@@ -80,18 +72,18 @@ public class ChangeWindow {
         }
 
         if(pagesReadSpinner.getValue().equals(totalPagesSpinner.getValue())) {
-            searchingBook.setFinishDate(LocalDate.now());
+            //searchingBook.setFinishDate(LocalDate.now());
         }
 
-        searchingBook.setAuthorOfBook(authorField.getText());
-        searchingBook.setNameOfBook(titleField.getText());
-        searchingBook.setCompletePages(pagesReadSpinner.getValue());
-        searchingBook.setAllPages(totalPagesSpinner.getValue());
-        searchingBook.changeProcent();
+        //searchingBook.setAuthorOfBook(authorField.getText());
+        //searchingBook.setNameOfBook(titleField.getText());
+        //searchingBook.setCompletePages(pagesReadSpinner.getValue());
+        //searchingBook.setAllPages(totalPagesSpinner.getValue());
+        //searchingBook.changeProcent();
 
         bvm.changeBook(searchingBook);
 
-        stage.close();
+        close();
     }
 
     protected void setupUI() {
@@ -116,7 +108,9 @@ public class ChangeWindow {
 
         // Кнопка добавления
         addButton = new Button("Добавить");
-        addButton.setOnAction(e -> validateAndAdd());
+        addButton.setOnAction(
+                e -> validateAndAdd()
+        );
         grid.add(addButton, 0, 4, 2, 1);
 
         // Метка для ошибок
@@ -125,8 +119,8 @@ public class ChangeWindow {
 
         // Настройка сцены
         Scene scene = new Scene(grid);
-        stage.setScene(scene);
-        stage.setResizable(false);
+        setScene(scene);
+        setResizable(false);
     }
 
     protected void setupValidation() {
@@ -135,10 +129,5 @@ public class ChangeWindow {
                 pagesReadSpinner.getValueFactory().setValue(newVal);
             }
         });
-    }
-
-    public Book showAndWait() {
-        stage.showAndWait();
-        return resultBook;
     }
 }

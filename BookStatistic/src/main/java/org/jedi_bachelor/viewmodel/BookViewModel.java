@@ -35,18 +35,18 @@ public class BookViewModel {
 
     public void openChangeWindow(int _index, BookViewModel _bvm) {
         if(_bvm.searchBookByID(_index) != null) {
-            ChangeWindow changeWindow = new ChangeWindow(_index, _bvm);
-            Book newBook = changeWindow.showAndWait();
-            updateBookModel(newBook);
-            System.out.println(newBook);
+            //ChangeWindow changeWindow = new ChangeWindow(_index, _bvm);
+            //Book newBook = changeWindow.showAndWait();
+            //updateBookModel(newBook);
+            //System.out.println(newBook);
         } else {
             System.out.println("Кринж");
         }
     }
 
     public void openInputIndexWindow() {
-        InputIndexWindow inputIndexWindow = new InputIndexWindow(this);
-        inputIndexWindow.showAndWait();
+        //InputIndexWindow inputIndexWindow = new InputIndexWindow(this);
+        //inputIndexWindow.showAndWait();
     }
 
     public void openAboutWindow() {

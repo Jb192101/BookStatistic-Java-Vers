@@ -22,8 +22,6 @@ public class InputDataViewModel extends LocalViewModel implements InteractViewMo
         this.newBook = _newBook;
 
         mvm.updateBookModel(this.newBook);
-
-        closeWindow();
     }
 
     @Override

@@ -7,18 +7,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import org.jedi_bachelor.viewmodel.BookViewModel;
+import org.jedi_bachelor.viewmodel.InputIndexViewModel;
+import org.jedi_bachelor.viewmodel.MainViewModel;
 
-public class InputIndexWindow extends Stage {
-    private BookViewModel bvm;
-    private Stage primaryStage;
+public class InputIndexWindow extends View {
+    private InputIndexViewModel iivm;
+    private MainViewModel mvm;
 
-    public InputIndexWindow(BookViewModel _bvm) {
-        this.bvm = _bvm;
-
-        primaryStage = new Stage();
+    public InputIndexWindow(InputIndexViewModel _iivm, MainViewModel _mvm) {
+        this.iivm = _iivm;
+        this.mvm = _mvm;
 
         Label label = new Label("Введите индекс книги:");
         TextField textField = new TextField();
@@ -26,8 +25,7 @@ public class InputIndexWindow extends Stage {
 
         Button closeButton = new Button("Редактировать...");
         closeButton.setOnAction(e -> {
-            bvm.openChangeWindow(Integer.parseInt(textField.getText()), this.bvm);
-            primaryStage.close();
+            iivm.setIndex(Integer.parseInt(textField.getText()));
         });
 
         VBox root = new VBox(10);
@@ -37,14 +35,10 @@ public class InputIndexWindow extends Stage {
 
         Scene scene = new Scene(root, 300, 100);
 
-        primaryStage.initStyle(StageStyle.UTILITY);
+        initStyle(StageStyle.UTILITY);
 
-        primaryStage.setTitle("Ввод индекса");
-        primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
-    }
-
-    public void showAndWait() {
-        primaryStage.show();
+        setTitle("Ввод индекса");
+        setScene(scene);
+        setResizable(false);
     }
 }

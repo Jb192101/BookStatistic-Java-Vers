@@ -1,10 +1,11 @@
 package org.jedi_bachelor.viewmodel;
 
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import org.jedi_bachelor.model.Book;
 import org.jedi_bachelor.model.Model;
 import org.jedi_bachelor.view.MainWindow;
-import org.jedi_bachelor.view.View;
 
 import java.util.Map;
 
@@ -14,10 +15,17 @@ public class MainViewModel extends LocalViewModel {
     // ViewModel-ы
     private AboutViewModel avm;
     private InputDataViewModel idvm;
+    private InputIndexViewModel iivm;
+    private ChangeViewModel cvm;
+
+    // Доп. окна
+    Alert alertWindow;
 
     public MainViewModel() {
         this.avm = new AboutViewModel();
         this.idvm = new InputDataViewModel(this);
+        this.iivm = new InputIndexViewModel(this);
+        this.cvm = new ChangeViewModel(this);
 
         model = new Model();
         this.window = new MainWindow(this);
@@ -72,27 +80,30 @@ public class MainViewModel extends LocalViewModel {
         idvm.openWindow();
     }
 
-    public void openChangeWindow(int _index, BookViewModel _bvm) {
-        /*
-        if(_bvm.searchBookByID(_index) != null) {
-            ChangeWindow changeWindow = new ChangeWindow(_index, _bvm);
-            Book newBook = changeWindow.showAndWait();
-            updateBookModel(newBook);
-            System.out.println(newBook);
+    public void openChangeWindow(int _index) {
+        if(searchBookByID(_index) != null) {
+            iivm.closeWindow();
+            cvm.openWindow();
         } else {
-            System.out.println("Кринж");
+            // Вывод сообщения об ошибке
+            alertWindow  = new Alert(Alert.AlertType.CONFIRMATION, "Неправильный ввод индекса книги!", ButtonType.OK);
+            alertWindow.showAndWait();
         }
-         */
     }
 
     public void openInputIndexWindow() {
-        /*
-        InputIndexWindow inputIndexWindow = new InputIndexWindow(this);
-        inputIndexWindow.showAndWait();
-         */
+        iivm.openWindow();
     }
 
     public void updateBookModel(Book _newBook) {
         this.model.updateDataAddBook(_newBook);
+    }
+
+    private Book searchBookByID(int _index) {
+        return model.searchBook(_index);
+    }
+
+    public void changeBook(Book _book) {
+        this.model.changeBook(_book);
     }
 }

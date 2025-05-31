@@ -9,7 +9,6 @@ import javafx.stage.Modality;
 import javafx.stage.StageStyle;
 import org.jedi_bachelor.model.Book;
 import org.jedi_bachelor.viewmodel.InputDataViewModel;
-import org.jedi_bachelor.viewmodel.LocalViewModel;
 
 public class InputDataWindow extends View {
     protected final TextField titleField = new TextField();
@@ -110,5 +109,9 @@ public class InputDataWindow extends View {
                 pagesRead,
                 totalPages
         ));
+
+        errorLabel.setText("");
+        titleField.setText("");
+        authorField.setText("");
     }
 }
