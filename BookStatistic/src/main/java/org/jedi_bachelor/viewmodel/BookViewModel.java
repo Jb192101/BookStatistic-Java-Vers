@@ -25,10 +25,12 @@ public class BookViewModel {
     // Методы открытия окон
 
     public void openInputDataWindow() {
+        /*
         InputDataWindow inputWindow = new InputDataWindow();
         Book newBook = inputWindow.showAndWait();
         updateBookModel(newBook);
         System.out.println(newBook);
+         */
     }
 
     public void openChangeWindow(int _index, BookViewModel _bvm) {

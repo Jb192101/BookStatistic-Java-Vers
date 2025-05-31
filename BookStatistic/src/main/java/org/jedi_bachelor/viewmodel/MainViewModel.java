@@ -4,33 +4,31 @@ import javafx.collections.ObservableList;
 import org.jedi_bachelor.model.Book;
 import org.jedi_bachelor.model.Model;
 import org.jedi_bachelor.view.MainWindow;
+import org.jedi_bachelor.view.View;
 
 import java.util.Map;
 
 public class MainViewModel extends LocalViewModel {
-    private Model model;
+    private final Model model;
 
     // ViewModel-ы
-    AboutViewModel avm;
+    private AboutViewModel avm;
+    private InputDataViewModel idvm;
 
     public MainViewModel() {
+        this.avm = new AboutViewModel();
+        this.idvm = new InputDataViewModel(this);
+
+        model = new Model();
         this.window = new MainWindow(this);
     }
 
-    @Override
-    public Book getBook() {
-        return null;
-    }
-
-    @Override
-    public void setBook() {
-
-    }
-
+    // Метод открытия окна "О проекте"
     public void openAboutWindow() {
         avm.openWindow();
     }
 
+    // Метод запуска приложения
     public void startApplication() {
         SplashViewModel svm = new SplashViewModel(this);
         svm.openWindow();
@@ -45,7 +43,6 @@ public class MainViewModel extends LocalViewModel {
 
         try {
             Map<Integer, Book> bookList = model.getBooks();
-            System.out.println(bookList);
             if(bookList.isEmpty()) {
                 return;
             }
@@ -58,13 +55,21 @@ public class MainViewModel extends LocalViewModel {
         }
     }
 
+    // Метод, возвращающий кол-во прочитанных книг
+    public int getCountCompleteBooks() {
+        int res = 0;
+        for(int key : model.getBooks().keySet()) {
+            if(model.getBooks().get(key).getFinishDate() != null) {
+                res++;
+            }
+        }
+
+        return res;
+    }
+
+    // Открытие окна для добавления новой книги
     public void openInputDataWindow() {
-        /*
-        InputDataWindow inputWindow = new InputDataWindow();
-        Book newBook = inputWindow.showAndWait();
-        updateBookModel(newBook);
-        System.out.println(newBook);
-         */
+        idvm.openWindow();
     }
 
     public void openChangeWindow(int _index, BookViewModel _bvm) {
@@ -87,7 +92,7 @@ public class MainViewModel extends LocalViewModel {
          */
     }
 
-    private void updateBookModel(Book _newBook) {
+    public void updateBookModel(Book _newBook) {
         this.model.updateDataAddBook(_newBook);
     }
 }

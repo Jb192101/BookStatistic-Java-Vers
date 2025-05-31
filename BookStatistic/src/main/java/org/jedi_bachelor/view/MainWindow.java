@@ -135,7 +135,7 @@ public class MainWindow extends View {
         bottomPanel.setPadding(new Insets(10));
         bottomPanel.setAlignment(Pos.BOTTOM_RIGHT);
 
-        Label booksCountLabel = new Label("Прочитано книг: " + data.size());
+        Label booksCountLabel = new Label("Прочитано книг: " + mvm.getCountCompleteBooks());
         bottomPanel.getChildren().add(booksCountLabel);
 
         ((VBox) root.getBottom()).getChildren().add(bottomPanel);

@@ -4,5 +4,5 @@ import org.jedi_bachelor.model.Book;
 
 public interface InteractViewModelInterface {
     Book getBook();
-    void setBook();
+    void setBook(Book _newBook);
 }

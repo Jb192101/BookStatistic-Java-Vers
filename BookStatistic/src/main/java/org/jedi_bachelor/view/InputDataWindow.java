@@ -5,16 +5,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import javafx.stage.StageStyle;
 import org.jedi_bachelor.model.Book;
+import org.jedi_bachelor.viewmodel.InputDataViewModel;
+import org.jedi_bachelor.viewmodel.LocalViewModel;
 
-public class InputDataWindow {
-    //private LocalViewModel lvm;
-
-    protected Stage stage;
-    private Book resultBook;
+public class InputDataWindow extends View {
     protected final TextField titleField = new TextField();
     protected final TextField authorField = new TextField();
     protected Spinner<Integer> pagesReadSpinner;
@@ -22,11 +19,13 @@ public class InputDataWindow {
     protected final Label errorLabel = new Label();
     protected Button addButton;
 
-    public InputDataWindow() {
-        stage = new Stage();
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.setTitle("Добавить книгу");
-        stage.initStyle(StageStyle.UTILITY);
+    private InputDataViewModel idvm;
+
+    public InputDataWindow(InputDataViewModel _idvm) {
+        this.idvm = _idvm;
+        initModality(Modality.WINDOW_MODAL);
+        setTitle("Добавить книгу");
+        initStyle(StageStyle.UTILITY);
 
         setupSpinners();
         setupUI();
@@ -60,7 +59,9 @@ public class InputDataWindow {
 
         // Кнопка добавления
         addButton = new Button("Добавить");
-        addButton.setOnAction(e -> validateAndAdd());
+        addButton.setOnAction(
+                e -> validateAndAdd()
+        );
         grid.add(addButton, 0, 4, 2, 1);
 
         // Метка для ошибок
@@ -69,8 +70,8 @@ public class InputDataWindow {
 
         // Настройка сцены
         Scene scene = new Scene(grid);
-        stage.setScene(scene);
-        stage.setResizable(false);
+        setScene(scene);
+        setResizable(false);
     }
 
     protected void setupValidation() {
@@ -102,19 +103,12 @@ public class InputDataWindow {
             return;
         }
 
-        Book resultBook;
-        resultBook = new Book(
+        // Если все проверки пройдены
+        idvm.setBook(new Book(
                 titleField.getText().trim(),
                 authorField.getText().trim(),
                 pagesRead,
                 totalPages
-        );
-
-        stage.close();
-    }
-
-    public Book showAndWait() {
-        stage.showAndWait();
-        return resultBook;
+        ));
     }
 }

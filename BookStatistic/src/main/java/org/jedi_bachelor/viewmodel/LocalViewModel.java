@@ -2,7 +2,7 @@ package org.jedi_bachelor.viewmodel;
 
 import org.jedi_bachelor.view.View;
 
-abstract public class LocalViewModel implements InteractViewModelInterface, InteractWindowsInterface {
+abstract public class LocalViewModel implements InteractWindowsInterface {
     protected View window;
 
     @Override
