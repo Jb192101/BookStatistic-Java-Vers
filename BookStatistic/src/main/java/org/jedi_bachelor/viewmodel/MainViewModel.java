@@ -6,6 +6,7 @@ import javafx.scene.control.ButtonType;
 import org.jedi_bachelor.model.Book;
 import org.jedi_bachelor.model.Date;
 import org.jedi_bachelor.model.Model;
+import org.jedi_bachelor.utils.LocaleManager;
 import org.jedi_bachelor.view.MainWindow;
 import org.jedi_bachelor.view.MonthStatView;
 
@@ -96,7 +97,7 @@ public class MainViewModel extends LocalViewModel {
             cvm.openWindow();
         } else {
             // Вывод сообщения об ошибке
-            alertWindow  = new Alert(Alert.AlertType.CONFIRMATION, "Неправильный ввод индекса книги!", ButtonType.OK);
+            alertWindow  = new Alert(Alert.AlertType.CONFIRMATION, LocaleManager.getString("ERROR_MESSAGE_INDEX"), ButtonType.OK);
             alertWindow.showAndWait();
         }
     }

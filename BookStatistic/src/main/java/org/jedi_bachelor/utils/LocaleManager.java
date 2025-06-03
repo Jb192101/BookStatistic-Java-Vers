@@ -1,4 +1,4 @@
-package org.jedi_bachelor.viewmodel;
+package org.jedi_bachelor.utils;
 
 /*
 Класс для установки локализации на приложение

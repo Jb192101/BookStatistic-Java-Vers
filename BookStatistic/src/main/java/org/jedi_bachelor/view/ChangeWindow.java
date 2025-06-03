@@ -8,6 +8,7 @@ import javafx.stage.Modality;
 
 import javafx.stage.StageStyle;
 import org.jedi_bachelor.model.Book;
+import org.jedi_bachelor.utils.LocaleManager;
 import org.jedi_bachelor.viewmodel.ChangeViewModel;
 
 import java.time.LocalDate;
@@ -25,7 +26,7 @@ public class ChangeWindow extends View {
     public ChangeWindow(ChangeViewModel _cvm) {
         this.cvm = _cvm;
         initModality(Modality.WINDOW_MODAL);
-        setTitle("Редактировать книгу");
+        setTitle(LocaleManager.getString("CHANGE_BOOK_TITLE"));
         initStyle(StageStyle.UTILITY);
 
         setupSpinners();
@@ -60,17 +61,17 @@ public class ChangeWindow extends View {
         errorLabel.setText("");
 
         if (titleField.getText().trim().isEmpty()) {
-            errorLabel.setText("Название книги не может быть пустым!");
+            errorLabel.setText(LocaleManager.getString("ERROR_TITLE_BOOK"));
             return;
         }
 
         if (authorField.getText().trim().isEmpty()) {
-            errorLabel.setText("Имя автора не может быть пустым!");
+            errorLabel.setText(LocaleManager.getString("ERROR_NAME_AUTHOR_BOOK"));
             return;
         }
 
         if (pagesReadSpinner.getValue() > totalPagesSpinner.getValue()) {
-            errorLabel.setText("Прочитано страниц не может быть больше общего количества!");
+            errorLabel.setText(LocaleManager.getString("ERROR_PAGES_BOOK"));
             return;
         }
 
@@ -95,8 +96,8 @@ public class ChangeWindow extends View {
         grid.setVgap(10);
         grid.setPadding(new Insets(15));
 
-        titleField.setPromptText("Название книги");
-        authorField.setPromptText("Автор книги");
+        titleField.setPromptText(LocaleManager.getString("TITLE_BOOK"));
+        authorField.setPromptText(LocaleManager.getString("AUTHOR_OF_BOOK"));
         pagesReadSpinner.setEditable(true);
         totalPagesSpinner.setEditable(true);
 
