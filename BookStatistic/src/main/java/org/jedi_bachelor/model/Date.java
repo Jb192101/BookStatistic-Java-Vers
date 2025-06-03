@@ -1,9 +1,21 @@
 package org.jedi_bachelor.model;
 
+/*
+Локальный класс для даты
+ */
+
+import lombok.Getter;
+import lombok.Setter;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Date {
+public class Date implements Serializable {
+    @Setter
+    @Getter
     private int month;
+    @Setter
+    @Getter
     private int year;
 
     public Date() {
@@ -17,26 +29,16 @@ public class Date {
         }
     }
 
-    public int getMonth() {
-        return month;
-    }
-
-    public void setMonth(int _month) {
-        this.month = _month;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int _year) {
-        this.year = _year;
-    }
-
     public static Date now() {
         int month = LocalDate.now().getDayOfMonth();
         int year = LocalDate.now().getDayOfYear();
 
         return new Date(month, year);
+    }
+
+    // Для отладки || Потом удали (!!!)
+    @Override
+    public String toString() {
+        return month + " " + year;
     }
 }

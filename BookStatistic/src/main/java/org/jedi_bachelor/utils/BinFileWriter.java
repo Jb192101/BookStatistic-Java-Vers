@@ -29,7 +29,6 @@ public class BinFileWriter<T> {
             FileOutputStream fos = new FileOutputStream(this.filePath);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-            System.out.println("Записан: "+ object);
             oos.writeObject(this.object);
             oos.flush();
 

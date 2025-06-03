@@ -76,6 +76,10 @@ public class Model {
         _newBook.setId(books.size() + 1);
         books.put(books.size() + 1, _newBook);
 
+        // Добавление прочитанных страниц в статистику
+        addPagesAtMonthSpeed(_newBook.getCompletePages());
+        addPagesAtMonthStat(_newBook.getCompletePages());
+
         updateFileBooks();
     }
 
@@ -97,8 +101,6 @@ public class Model {
         addPagesAtMonthStat(changedPages);
         addPagesAtMonthSpeed(changedPages);
 
-        System.out.println(monthTemps);
-
         books.remove(id, medBook);
 
         medBook.setNameOfBook(_book.getNameOfBook());
@@ -115,12 +117,20 @@ public class Model {
     private void updateFileBooks() {
         bfwBooks.setObject(books);
         bfwBooks.write();
+
+        System.out.println(monthTemps);
+        bfwStatTemps.setObject(monthTemps);
+        bfwStatTemps.write();
+
+        bfwStat.setObject(monthStat);
+        bfwStat.write();
     }
 
     public Book searchBook(int _id) {
         if(this.books.containsKey(_id))
             return this.books.get(_id);
 
+        // Если книга не найдена, возвращай null
         return null;
     }
 
