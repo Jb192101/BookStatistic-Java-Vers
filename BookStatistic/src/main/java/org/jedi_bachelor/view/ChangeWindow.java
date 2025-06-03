@@ -7,10 +7,13 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 
 import javafx.stage.StageStyle;
+import org.jedi_bachelor.model.Book;
 import org.jedi_bachelor.viewmodel.ChangeViewModel;
 
+import java.time.LocalDate;
+
 public class ChangeWindow extends View {
-    private ChangeViewModel cvm;
+    private final ChangeViewModel cvm;
 
     protected final TextField titleField = new TextField();
     protected final TextField authorField = new TextField();
@@ -25,33 +28,35 @@ public class ChangeWindow extends View {
         setTitle("Редактировать книгу");
         initStyle(StageStyle.UTILITY);
 
+        setupSpinners();
         setupUI();
+        fillingFields();
         setupValidation();
     }
 
     private void fillingFields() {
-        //this.titleField.setText(searchingBook.getNameOfBook());
-        //this.authorField.setText(searchingBook.getAuthorOfBook());
+        this.titleField.setText(cvm.getBook().getNameOfBook());
+        this.authorField.setText(cvm.getBook().getAuthorOfBook());
     }
 
     protected void setupSpinners() {
         this.pagesReadSpinner = new Spinner<>();
         this.totalPagesSpinner = new Spinner<>();
 
-        /*
         SpinnerValueFactory.IntegerSpinnerValueFactory factory1 =
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, Integer.MAX_VALUE, searchingBook.getCompletePages());
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, Integer.MAX_VALUE, cvm.getBook().getCompletePages());
 
         pagesReadSpinner.setValueFactory(factory1);
 
         SpinnerValueFactory.IntegerSpinnerValueFactory factory2 =
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, Integer.MAX_VALUE, searchingBook.getAllPages());
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, Integer.MAX_VALUE, cvm.getBook().getAllPages());
 
         totalPagesSpinner.setValueFactory(factory2);
-         */
     }
 
     protected void validateAndAdd() {
+        Book searchingBook = new Book();
+
         errorLabel.setText("");
 
         if (titleField.getText().trim().isEmpty()) {
@@ -70,16 +75,16 @@ public class ChangeWindow extends View {
         }
 
         if(pagesReadSpinner.getValue().equals(totalPagesSpinner.getValue())) {
-            //searchingBook.setFinishDate(LocalDate.now());
+            searchingBook.setFinishDate(LocalDate.now());
         }
 
-        //searchingBook.setAuthorOfBook(authorField.getText());
-        //searchingBook.setNameOfBook(titleField.getText());
-        //searchingBook.setCompletePages(pagesReadSpinner.getValue());
-        //searchingBook.setAllPages(totalPagesSpinner.getValue());
-        //searchingBook.changeProcent();
+        searchingBook.setAuthorOfBook(authorField.getText());
+        searchingBook.setNameOfBook(titleField.getText());
+        searchingBook.setCompletePages(pagesReadSpinner.getValue());
+        searchingBook.setAllPages(totalPagesSpinner.getValue());
+        searchingBook.changeProcent();
 
-        //bvm.changeBook(searchingBook);
+        cvm.setBook(searchingBook);
 
         close();
     }

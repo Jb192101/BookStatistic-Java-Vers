@@ -121,7 +121,7 @@ public class Model {
         if(this.books.containsKey(_id))
             return this.books.get(_id);
 
-        return new Book();
+        return null;
     }
 
     private void addPagesAtMonthStat(int _changed) {

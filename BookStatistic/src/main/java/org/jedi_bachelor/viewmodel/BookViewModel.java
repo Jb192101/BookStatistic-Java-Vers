@@ -1,3 +1,8 @@
+/*
+Рудиментный файл | Остался после неудачных попыток создать первый viewmodel
+ */
+
+/*
 package org.jedi_bachelor.viewmodel;
 
 import javafx.collections.ObservableList;
@@ -25,12 +30,10 @@ public class BookViewModel {
     // Методы открытия окон
 
     public void openInputDataWindow() {
-        /*
         InputDataWindow inputWindow = new InputDataWindow();
         Book newBook = inputWindow.showAndWait();
         updateBookModel(newBook);
         System.out.println(newBook);
-         */
     }
 
     public void openChangeWindow(int _index, BookViewModel _bvm) {
@@ -87,5 +90,5 @@ public class BookViewModel {
     public Book searchBookByID(int _index) {
         return model.searchBook(_index);
     }
-
 }
+*/

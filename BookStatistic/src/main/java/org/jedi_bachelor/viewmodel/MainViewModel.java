@@ -81,7 +81,10 @@ public class MainViewModel extends LocalViewModel {
     }
 
     public void openChangeWindow(int _index) {
-        if(searchBookByID(_index) != null) {
+        Book changedBook = searchBookByID(_index);
+        System.out.println(changedBook);
+        if(changedBook != null) {
+            cvm.setBookWithoutClosingWindow(changedBook);
             iivm.closeWindow();
             cvm.openWindow();
         } else {

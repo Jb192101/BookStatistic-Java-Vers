@@ -3,7 +3,7 @@ package org.jedi_bachelor.viewmodel;
 import org.jedi_bachelor.view.InputIndexWindow;
 
 public class InputIndexViewModel extends LocalViewModel {
-    private MainViewModel mvm;
+    private final MainViewModel mvm;
 
     public InputIndexViewModel(MainViewModel _mvm) {
         this.mvm = _mvm;
