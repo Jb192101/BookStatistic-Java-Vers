@@ -4,8 +4,10 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import org.jedi_bachelor.model.Book;
+import org.jedi_bachelor.model.Date;
 import org.jedi_bachelor.model.Model;
 import org.jedi_bachelor.view.MainWindow;
+import org.jedi_bachelor.view.MonthStatView;
 
 import java.util.Map;
 
@@ -17,17 +19,22 @@ public class MainViewModel extends LocalViewModel {
     private InputDataViewModel idvm;
     private InputIndexViewModel iivm;
     private ChangeViewModel cvm;
+    private MonthStatViewModel msvm;
+    private MonthTempsViewModel mtvm;
 
     // Доп. окна
     Alert alertWindow;
 
     public MainViewModel() {
+        model = new Model();
+
         this.avm = new AboutViewModel();
         this.idvm = new InputDataViewModel(this);
         this.iivm = new InputIndexViewModel(this);
         this.cvm = new ChangeViewModel(this);
+        this.msvm = new MonthStatViewModel(this);
+        this.mtvm = new MonthTempsViewModel(this);
 
-        model = new Model();
         this.window = new MainWindow(this);
     }
 
@@ -98,6 +105,18 @@ public class MainViewModel extends LocalViewModel {
         iivm.openWindow();
     }
 
+    public void openMonthStatWindow() {
+        msvm.openWindow();
+    }
+
+    public void openMonthTempsWindow() {
+        mtvm.openWindow();
+    }
+
+    /*
+    Методы для работы с моделью
+     */
+
     public void updateBookModel(Book _newBook) {
         this.model.updateDataAddBook(_newBook);
     }
@@ -108,5 +127,13 @@ public class MainViewModel extends LocalViewModel {
 
     public void changeBook(Book _book) {
         this.model.changeBook(_book);
+    }
+
+    public Map<Date, Integer> getStatisticTemps() {
+        return model.getTemps();
+    }
+
+    public Map<Date, Integer> getStatisticStat() {
+        return model.getStat();
     }
 }

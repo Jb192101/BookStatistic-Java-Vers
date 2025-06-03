@@ -8,7 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.File;
 
 public class BinFileReader<T> {
-    private String filePath;
+    private final String filePath;
     @Getter
     private T object;
 

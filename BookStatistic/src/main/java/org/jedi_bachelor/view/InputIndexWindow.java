@@ -13,11 +13,9 @@ import org.jedi_bachelor.viewmodel.MainViewModel;
 
 public class InputIndexWindow extends View {
     private InputIndexViewModel iivm;
-    private MainViewModel mvm;
 
-    public InputIndexWindow(InputIndexViewModel _iivm, MainViewModel _mvm) {
+    public InputIndexWindow(InputIndexViewModel _iivm) {
         this.iivm = _iivm;
-        this.mvm = _mvm;
 
         Label label = new Label("Введите индекс книги:");
         TextField textField = new TextField();

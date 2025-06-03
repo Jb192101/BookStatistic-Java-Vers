@@ -8,7 +8,7 @@ public class InputIndexViewModel extends LocalViewModel {
     public InputIndexViewModel(MainViewModel _mvm) {
         this.mvm = _mvm;
 
-        this.window = new InputIndexWindow(this, mvm);
+        this.window = new InputIndexWindow(this);
     }
 
     public void setIndex(int _index) {

@@ -55,6 +55,14 @@ public class Model {
         return this.books;
     }
 
+    public Map<Date, Integer> getStat() {
+        return this.monthStat;
+    }
+
+    public Map<Date, Integer> getTemps() {
+        return this.monthTemps;
+    }
+
     private void readFromFile() {
         bfrBooks.read();
         books = bfrBooks.getObject();
