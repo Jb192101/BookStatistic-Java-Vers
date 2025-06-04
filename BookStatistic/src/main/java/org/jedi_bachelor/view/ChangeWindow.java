@@ -101,17 +101,17 @@ public class ChangeWindow extends View {
         pagesReadSpinner.setEditable(true);
         totalPagesSpinner.setEditable(true);
 
-        grid.add(new Label("Название книги:"), 0, 0);
+        grid.add(new Label(LocaleManager.getString("TITLE_BOOK")), 0, 0);
         grid.add(titleField, 1, 0);
-        grid.add(new Label("Автор книги:"), 0, 1);
+        grid.add(new Label(LocaleManager.getString("AUTHOR_OF_BOOK")), 0, 1);
         grid.add(authorField, 1, 1);
-        grid.add(new Label("Прочитано страниц:"), 0, 2);
+        grid.add(new Label(LocaleManager.getString("HAD_READED_PAGES_COLON")), 0, 2);
         grid.add(pagesReadSpinner, 1, 2);
-        grid.add(new Label("Всего страниц:"), 0, 3);
+        grid.add(new Label(LocaleManager.getString("ALL_PAGES_COLON")), 0, 3);
         grid.add(totalPagesSpinner, 1, 3);
 
         // Кнопка добавления
-        addButton = new Button("Добавить");
+        addButton = new Button(LocaleManager.getString("ADD_BOOK_BUTTON"));
         addButton.setOnAction(
                 e -> validateAndAdd()
         );

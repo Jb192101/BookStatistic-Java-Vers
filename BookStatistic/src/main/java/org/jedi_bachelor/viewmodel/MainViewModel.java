@@ -8,7 +8,6 @@ import org.jedi_bachelor.model.Date;
 import org.jedi_bachelor.model.Model;
 import org.jedi_bachelor.utils.LocaleManager;
 import org.jedi_bachelor.view.MainWindow;
-import org.jedi_bachelor.view.MonthStatView;
 
 import java.util.Map;
 
@@ -22,9 +21,11 @@ public class MainViewModel extends LocalViewModel {
     private ChangeViewModel cvm;
     private MonthStatViewModel msvm;
     private MonthTempsViewModel mtvm;
+    private SettingsViewModel svm;
 
     // Доп. окна
-    Alert alertWindow;
+    // Окно ошибки
+    private Alert alertWindow;
 
     public MainViewModel() {
         model = new Model();
@@ -35,6 +36,7 @@ public class MainViewModel extends LocalViewModel {
         this.cvm = new ChangeViewModel(this);
         this.msvm = new MonthStatViewModel(this);
         this.mtvm = new MonthTempsViewModel(this);
+        this.svm = new SettingsViewModel(this);
 
         this.window = new MainWindow(this);
     }
@@ -112,6 +114,10 @@ public class MainViewModel extends LocalViewModel {
 
     public void openMonthTempsWindow() {
         mtvm.openWindow();
+    }
+
+    public void openSettingsWindow() {
+        svm.openWindow();
     }
 
     /*

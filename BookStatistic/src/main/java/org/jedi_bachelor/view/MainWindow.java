@@ -17,6 +17,7 @@ import javafx.stage.StageStyle;
 
 import org.jedi_bachelor.model.Book;
 import org.jedi_bachelor.model.Date;
+import org.jedi_bachelor.utils.LocaleManager;
 import org.jedi_bachelor.viewmodel.MainViewModel;
 
 public class MainWindow extends View {
@@ -41,7 +42,7 @@ public class MainWindow extends View {
         //scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
         root.getStyleClass().add("root");
 
-        setTitle("BookStatistic v1.0");
+        setTitle(LocaleManager.getString("APPLICATION_TITLE"));
         initStyle(StageStyle.UTILITY);
         setScene(scene);
         setResizable(false);
@@ -52,7 +53,12 @@ public class MainWindow extends View {
         topPanel.setPadding(new Insets(10));
         topPanel.setAlignment(Pos.TOP_RIGHT);
 
-        Button aboutButton = new Button("О проекте");
+        Button settingsButton = new Button(LocaleManager.getString("SETTINGS_BUTTON"));
+        settingsButton.setOnAction(e ->
+                mvm.openSettingsWindow()
+        );
+
+        Button aboutButton = new Button(LocaleManager.getString("ABOUT_PROJECT_BUTTON"));
         aboutButton.setOnAction(e ->
                 mvm.openAboutWindow()
         );
@@ -64,10 +70,10 @@ public class MainWindow extends View {
     private void createTableView() {
         TableView<Book> table = new TableView<>();
 
-        TableColumn<Book, Integer> idColumn = new TableColumn<>("ID");
+        TableColumn<Book, Integer> idColumn = new TableColumn<>(LocaleManager.getString("ID_BOOK_LABEL"));
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
-        TableColumn<Book, String> titleColumn = new TableColumn<>("Название книги");
+        TableColumn<Book, String> titleColumn = new TableColumn<>(LocaleManager.getString("TITLE_BOOK"));
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("nameOfBook"));
 
         TableColumn<Book, String> authorColumn = new TableColumn<>("Авторство книги");
@@ -110,10 +116,10 @@ public class MainWindow extends View {
         buttonPanel.setPadding(new Insets(10));
         buttonPanel.setAlignment(Pos.CENTER);
 
-        Button addButton = new Button("Добавить");
-        Button editButton = new Button("Редактировать");
-        Button statMonthButton = new Button("Стата");
-        Button statTempsButton = new Button("Темпы");
+        Button addButton = new Button(LocaleManager.getString("ADD_BOOK_BUTTON"));
+        Button editButton = new Button(LocaleManager.getString("CHANGE_BOOK_BUTTON"));
+        Button statMonthButton = new Button(LocaleManager.getString("STAT_READING_BUTTON"));
+        Button statTempsButton = new Button(LocaleManager.getString("TEMPS_READING_BUTTON"));
 
         addButton.setOnAction(e -> {
             mvm.openInputDataWindow();
@@ -135,7 +141,7 @@ public class MainWindow extends View {
         bottomPanel.setPadding(new Insets(10));
         bottomPanel.setAlignment(Pos.BOTTOM_RIGHT);
 
-        Label booksCountLabel = new Label("Прочитано книг: " + mvm.getCountCompleteBooks());
+        Label booksCountLabel = new Label(LocaleManager.getString("ALL_READED_BOOKS_LABEL") + mvm.getCountCompleteBooks());
         bottomPanel.getChildren().add(booksCountLabel);
 
         ((VBox) root.getBottom()).getChildren().add(bottomPanel);
