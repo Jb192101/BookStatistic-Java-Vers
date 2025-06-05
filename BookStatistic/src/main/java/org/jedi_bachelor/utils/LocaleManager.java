@@ -16,7 +16,8 @@ public class LocaleManager {
 
     public static void setLocale(Locale locale) {
         currentLocale = locale;
-        bundle = ResourceBundle.getBundle("bundles.local", locale);
+        System.out.println(locale);
+        bundle = ResourceBundle.getBundle("local", locale);
     }
 
     public static ResourceBundle getBundle() {

@@ -63,7 +63,7 @@ public class MainWindow extends View {
                 mvm.openAboutWindow()
         );
 
-        topPanel.getChildren().add(aboutButton);
+        topPanel.getChildren().addAll(settingsButton, aboutButton);
         root.setTop(topPanel);
     }
 
