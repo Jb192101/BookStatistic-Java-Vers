@@ -79,10 +79,13 @@ public class ChangeWindow extends View {
             searchingBook.setFinishDate(LocalDate.now());
         }
 
+        /*
         searchingBook.setAuthorOfBook(authorField.getText());
         searchingBook.setNameOfBook(titleField.getText());
         searchingBook.setCompletePages(pagesReadSpinner.getValue());
         searchingBook.setAllPages(totalPagesSpinner.getValue());
+         */
+        searchingBook = new Book(authorField.getText(), titleField.getText(), pagesReadSpinner.getValue(), totalPagesSpinner.getValue());
         searchingBook.changeProcent();
 
         cvm.setBook(searchingBook);

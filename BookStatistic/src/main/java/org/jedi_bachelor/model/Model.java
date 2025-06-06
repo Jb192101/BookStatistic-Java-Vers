@@ -92,14 +92,20 @@ public class Model {
     }
 
     public void changeBook(Book _book) {
+        if(_book == null) {
+            return;
+        }
+
         int id = 0;
         int changedPages = 0;
         if(this.books.containsValue(_book))
-            for(int idIterator : this.books.keySet())
+            for(int idIterator : this.books.keySet()) {
+                System.out.println(this.books.get(idIterator).equals(_book));
                 if (this.books.get(idIterator).equals(_book)) {
                     id = idIterator;
                     break;
                 }
+            }
         Book medBook = searchBook(id);
 
         changedPages = _book.getCompletePages() - medBook.getCompletePages();
